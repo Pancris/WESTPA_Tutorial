@@ -2,7 +2,7 @@ The following are user submitted scripts (bash, python, zsh, etc) that may be he
 
 # How To Contribute
 
-Where appropriate, please use a git/mercurial repository, and link to the repo from this page.  For individual scripts, use [gists](gist.github.com), which are essentially one file git repositories that may be linked with their own unique URL.  This avoids cluttering the page and allows for version control, even for individual scripts.  Please include contact information, if desired, and a brief description of what the script does.  For now, please simply add in scripts; as more are added, they will be organized appropriately.
+Where appropriate, please use a git/mercurial repository, and link to the repo from this page.  For individual scripts, use [gists](https://gist.github.com/), which are essentially one file git repositories that may be linked with their own unique URL.  This avoids cluttering the page and allows for version control, even for individual scripts.  Please include contact information, if desired, and a brief description of what the script does.  For now, please simply add in scripts; as more are added, they will be organized appropriately.
 
 # Scripts
 
