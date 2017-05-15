@@ -1,4 +1,8 @@
-Welcome to the westpa wiki!
+Welcome to the WESTPA Wiki!
+
+This is a repository for community development of the weighted ensemble path sampling approach, and its implementation in the WESTPA software package.
+
+[[WESTPA Tutorials|WESTPA Tutorials]]
 
 [[Useful Tips|Useful Tips]]
 
