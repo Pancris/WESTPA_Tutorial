@@ -10,3 +10,4 @@
 * WESTPA Workshop Tutorials
 
 # Advanced Tutorials
+* [[Chignolin Tutorial|chignolin-tutorial]]
