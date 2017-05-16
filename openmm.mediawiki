@@ -1,0 +1,251 @@
+= OpenMM Tutorial: Molecular Dynamics of Na<sup>+</sup>/Cl<sup>-</sup> Association =
+
+by Joshua L. Adelman
+
+Updated with WESTPA version 1.0 beta and OpenMM 5.1
+
+== Overview ==
+
+Requirements: ~? hours wallclock time on ?; ~? GB disk space
+
+In this tutorial we will use the standard weighted ensemble approach to simulate Na<sup>+</sup>/Cl<sup>-</sup> association in Generalized Born implicit solvent. The system consists of single Na<sup>+</sup> and Cl<sup>-</sup> ions modeled with the [http://ambermd.org/#ff Amber force field], using the distance between the two ions as the progress coordinate. [http://openmm.org OpenMM] will be used to run the molecular dynamics, and familiarity with it is a prerequisite (see [http://docs.openmm.org/6.2.0/userguide/index.html tutorials]).
+
+This tutorial uses the same starting files, generated using Amber, as the Introductory Amber Tutorial &lt;amber_tutorial&gt;. Instead of using Amber (<code>pmemd</code> or <code>sander</code>) to run the dynamics, we will use the OpenMM framework along with its python wrapper to propagate the system.
+
+While the Amber tutorial uses the executable propagator to call out to Amber and then a number of shell scripts to communicate the results back to WESTPA, OpenMM's python wrapper allows us to integrate the molecular dynamics simulation directly into WESTPA. This tutorial will therefore require some understanding of python and the OpenMM framework. Additionally, the focus will be on integrating OpenMM into WESTPA and less on the analysis of the resulting simulations.
+
+Since the Na<sup>+</sup>/Cl<sup>-</sup> system only contains two atoms, we will make some design decisions in setting up the simulation that may not be appropriate more generally. Most notably, we will avoid writing trajectory data and restart files for each trajectory segment to disk as separate files, as is generally done when using the executable propagator. Instead, we will store all of this data in the main hdf5 file that also contains the data related to the weighted ensemble run.
+
+The first step is to set up a directory containing the necessary AMBER and WESTPA files. A working example directory can be found at <code>westpa/lib/examples/nacl_openmm</code>.
+
+== Preparing the OpenMM files ==
+
+{|
+! Input File
+! Description
+|-
+| ...
+| ...
+|}
+
+We will begin with the coordinate and topology files (<code>nacl.inpcrd</code> and <code>nacl.prmtop</code> respectively) produced by AmberTools. We will construct an OpenMM system and integrator and then serialize the resulting python objects using a short script:
+
+<pre>python build_system.py</pre>
+== Preparing the WESTPA files ==
+
+{|
+! Input File
+! Description
+|-
+| env.sh
+| set environment variables
+|-
+| system.py
+| system implementation
+|-
+| openmm_propagator.py
+| custom propagator to run openmm calculation across
+|-
+|
+
+| multiple devices
+|-
+| restart_plugin.py
+| plugin to allow restart information to be stored in the
+|-
+|
+
+| west.h5 file
+|-
+| west.cfg
+| WESTPA configuration
+|-
+| init.sh
+| initialize WESTPA
+|}
+
+=== system.py ===
+
+This file contains information about the progress coodinate, binning, walkers per bin and more. This file is nearly identical to one defined in the Introductory Amber Tutorial &lt;amber_tutorial&gt;. In this example we will be using the distance between the two ions as the progress coordinate, giving us a one dimensional coordinate:
+
+<pre>self.pcoord_ndim = 1</pre>
+The positions of the bins along this progress coordinate are the same as those used by [http://pubs.acs.org/doi/abs/10.1021/ct100626x Zwier, Kaus, and Chong]:
+
+<pre>binbounds = [0.0] + [2.8, 2.88, 3.0, 3.10, 3.29, 3.79, 3.94, 4.12, 4.39,
+  5.43] + [5.90+1.0*i for i in xrange(0,11)] + [30,float('inf')]</pre>
+Since every walker must lie in a bin, the upper boundary to the last bin is set to infinity i.e. <code>[30, float('inf')]</code>. The bin boundaries are left inclusive e.g. a walker with a value of 2.8 would end up in the second bin. The positions of your bins must be either monotonically increasing or decreasing - otherwise, you will get an error message indicating this requirement.
+
+The number of walkers per bin is specified by the following:
+
+<pre>bin.target_count = 48</pre>
+Using a tau value of 0.5 ps, we will monitor the progress coordinate every 0.05 ps, writing coordinates 10 times. Including the initial configuration this gives an expected progress coordinate length of 11:
+
+<blockquote>self.pcoord_len = 11
+</blockquote>
+Finally, we specify the format in which the coordinates are stored:
+
+<blockquote>self.pcoord_dtype = numpy.float32
+</blockquote>
+=== openmm_propagator.py ===
+
+The OpenMMPropagator subclasses the WESTPropagator interface and implements all of the necessary methods to run a WESTPA simulation using OpenMM. The implementation presented in this example, while fairly generic, is still specific enough to the Na<sup>+</sup>/Cl<sup>-</sup> association example, that changes will likely be necessary to adapt it for another system. Below is a brief description of each method in the class:
+
+The <code>__init__</code> method is primarily responsible for parsing the configuration parameters form <code>west.cfg</code> and building the OpenMM system, integrator and platform objects. Since each OpenMM context must be tied to a unique integrator, the <code>propagator</code> method actually deserializes the integrator for each propagation step. In this method, however, it is primarily being used to retrieve the temperature of the system.
+
+==== static methods ====
+
+The OpenMMPropagator contains three methods that are tagged with the Python's <code>@staticmethod</code> decorator. This designation just allows the methods to be encapsulated within the class, but they do not have direct access to the class's internal data. The <code>dist</code> method just calculates a simple Euclidean distance between two points and is used in calculating the pcoord of a conformation of the system. The <code>makepath</code> method assembles a path on the filesystem from a template and is used to tell the propagator where to grab initial state information from. The <code>mkdir_p</code> method augments the standard library's <code>os</code> module to allow unix <code>mkdir -p</code> like behavior.
+
+==== get_pcoord method ====
+
+This method assigns a pcoord value to a given state. The state can either be an <code>BasisState</code>, in which case we uses the basis state's coordinate, which are stored as a class variable to calculate the pcoord using <code>dist</code>. If the state is an <code>InitialState</code> (i.e. the result of perturbing the x-position of one of the ions by a random amount), we construct the path to the file containing its coordinates, and calculate the pcoord after reading the file from disk.
+
+==== propagate method ====
+
+The <code>propagate</code> method takes a set of segments and runs each for a length of time tau. Initially, the method attempts to assign the calculation to a device based on the <code>WM_PROCESS_INDEX</code> environment variable if it is available (both the zmq and processes work managers set it, but the other work managers do not). A context is then constructed, before the method iterates over all segments.
+
+For each segment, an initial set of coordinates or velocities are obtained either from the parent segment, if this segment is a continuation of previous dynamics, or from an initial state if the segment is being initiated at the start of the WE calculation or is the result of a recycling event. Dynamics are then run using the OpenMM integrator. At a user-specified interval, the calculation is halted and the coordinates and velocities, along with the calculated pcoord are saved to temporary arrays. Finally this data is transferred to the segment's internal data structures.
+
+==== gen_istate method ====
+
+This method takes a basis state and generates an initial state by randomly perturbing the basis state and storing the results to disk using the naming convention specified by the template given in the <code>west.cfg</code> file.
+
+=== restart_plugin.py ===
+
+In order to restart a segment from its parent, we need access to the last set of coordinates and velocities recorded for the parent in the <code>coord</code> and <code>veloc</code> data sets. We use a custom plugin that is run just before the propagation step that temporarily loads the necessary coordinates and velocities into a segment's data dictionary as <code>segment.data['restart_coord']</code> and <code>segment.data['restart_veloc']</code>. The propagator will then delete this data once it has been transferred to the OpenMM context.
+
+This allows us to run the entire simulation from the main hdf5 file without writing any per-segment data to individual files. While convenient for a simple system like the one in this example, it may not be as desirable for systems with a large number of particles. In that case the propagator will need to be modified to load the restart data from individual files contained in the traj_segs directory on the file system, as is the case for the examples that use the executable propagator.
+
+=== west.cfg ===
+
+The actual WESTPA simulation is configured using the yaml-formatted <code>west.cfg</code> file. The custom propagator will extract a number of parameters from the <code>openmm</code> section shown below.:
+
+<pre>---
+west:
+  ...
+  openmm:
+    system: 
+      file: system.xml
+    integrator: 
+      file: integrator.xml
+      steps_per_tau: 250
+      steps_per_write: 25
+    platform:
+      name: CUDA
+      #properties: {'OpenCLPlatformIndex': '1', 'OpenCLDeviceIndex': '0'} # Platform specific properties </pre>
+The xml files are the output of running the <code>build_system.py</code> script. Within the <code>integrator</code> section, the <code>steps_per_tau</code> and <code>steps_per_write</code> specify the number of time steps that the integrator should advance the system per tau (so 250 x 2 fs = 0.5 ps) and at what frequency, in numbers of steps, that the pcoord and auxiliary data should be collected, respectively.
+
+The <code>platform</code> section defines a platform <code>name</code>, which can be <code>Reference</code>, <code>CUDA</code>, or <code>OpenCL</code>, assuming the latter two are installed on your system. The CUDA platform requires a compatible GPU card, but the OpenCL platform, in addition to running on GPUs supports both the Intel and AMD CPU OpenCL SDK.
+
+Finally, the <code>properties</code> variable under the <code>platform</code> section defines a dictionary, whose members override the defaults specified in the propagator <code>__init__</code> method. See the defaults for all possible platform specific settings. Importantly, the <code>XXXDeviceIndex</code> settings are ignored when running in parallel using either the zeromq or processes work managers, since they set that variable dynamically for each worker. However, when running in serial mode on a multi-device system, it can be useful to select a specific device to run the calculation on. When running using the OpenCL platform, the [https://github.com/nbigaouette/oclutils oclutils] library is useful in extracting information about the available devices and platforms (in the OpenCL meaning of platform, rather than the OpenMM one).
+
+There are also some important settings under the <code>propagation</code> section:
+
+<pre>---
+west:
+  ...
+  propagation:
+    max_total_iterations: 2
+    max_run_wallclock: 2:00:00
+    propagator: openmm_propagator.OpenMMPropagator
+    gen_istates: true
+    block_size: 138</pre>
+In addition to setting the location of the custom openmm propagator, this section allows you to set the total number of iterations to run using <code>max_total_iterations</code>. This should be changed to collect data for this system to at least 100. The <code>max_run_wallclock</code> time should also be adjusted depending on the hardware being used to run this simulation. Using four GTX 680s, this system takes approximately 16 seconds per iteration.
+
+A particularly important setting in terms of the performance of the calculation is <code>block_size</code>. This parameter determines how many segments are sent to the propagator at a time during the run. Since setting up the OpenMM context is quite expensive, one can get a large boost in performance by re-using the same context and just pushing new coordinates and velocities to it. So if the calculation is run using the serial work manager, <code>block_size</code> should be set to the maximum number of replicas possible for the system, which in this case is 552. Likewise, if running the calculation over 4 devices, this number should be 552 / 4 = 138.
+
+== Running the simulation ==
+
+The simulation can then be initiated and ran using the shell scripts, <code>init.sh</code> and <code>run.sh</code>.
+
+From the simulation root directory (<code>$WEST_SIM_ROOT</code>) directory, enter into the command line:
+
+<pre>./init.sh</pre>
+The script should create a directory called <code>istates</code>, as well as an HDF5 file named <code>west.h5</code>. Because the <code>gen_istates</code> flag was set to True in the west.cfg file, the propagator's <code>gen_istate</code> method should prepare multiple different <code>.txt</code> input coordinate files, located in the <code>istates/1</code> directory. The <code>init.sh</code> script should finish by printing &quot;Simulation prepared.&quot; with a short list (8 lines) of probabilities and statistics about the initial state of the methane-methane simulation.
+
+Now that your simulation has been initialized, it is ready to be run by the weighted ensemble code. Use the command:
+
+<pre>./run.sh --work-manager=zmq --n-workers=4 &amp;</pre>
+to use the <code>zmq</code> work manager and run using 4 workers.
+
+The <code>init.sh</code> and <code>run.sh</code> scripts call <code>w_init.py</code> and <code>w_run.py</code> from the main weighted ensemble code, respectively. If either does not work, check to see if the <code>env.sh</code> is set up properly and if it points to the right directory for your weighted ensemble code (the default settings assume you are running from within the westpa/lib/nacl_openmm directory). Make sure that the <code>WEST_ROOT</code> variable is set to where the <code>westpa</code> directory exists and the <code>WEST_SIM_ROOT</code> variable is set to where your simulation directory exists.
+
+== Analyzing the data ==
+
+=== Output ===
+
+{|
+! Output File
+! Remarks
+|-
+| west.h5
+| WESTPA output in hdf5 database
+|-
+| west.log
+| WESTPA log file
+|}
+
+The way in which we set up the calculation, all output data is stored within the hdf5 file, <code>west.h5</code>. Because we specified 2 iterations in the <code>west.cfg</code> file, the simulation should have only run for a short period of time. This is not enough to generate any meaningful results, but is sufficient to ensure that the system was set up properly.
+
+In the <code>west.cfg</code> file, change the <code>max_total_iterations</code> variable to 100. The westpa code will continue the simulation from where you left off, based on the data present in the <code>west.h5</code> file. If you wanted to restart the simulation from scratch, you would need to run the <code>init.sh</code> script again, which would remove the existing <code>west.h5</code> file and create a new one. Once you have changed the <code>max_total_iterations</code> flag to 100, execute the <code>run.sh</code> script again. Simulating 100 iterations may take some time, so be prepared to wait. Using 4 GTX 680s and running with the CUDA, platform, this should take about 25 minutes. Not, that for a small number of atoms, such is the case for this system, running on the GPUs does not leverage the full capabilities of the hardware and is likely to be slower than using an optimized CPU-based code.
+
+=== Computing the association rate ===
+
+WESTPA includes several tools for analysis located in <code>$WEST_ROOT/bin</code>. In <code>init.sh</code> we specified the bin containing an Na<sup>+</sup>/Cl<sup>-</sup> distance of 1.8 Å as the bound state, and that containing a distance of 16.9 Å as the unbound state. Using <code>w_fluxanl</code>, we can calculate the flux into these target states, and from that calculate the association rate of Na<sup>+</sup>/Cl
+<sup>-</sup>. <code>w_fluxanl</code> may be run with the following commands:
+
+<pre>source env.sh
+$WEST_ROOT/bin/w_fluxanl</pre>
+The script will output the flux into the target states including confidence intervals calculated using the block bootstrap method:
+
+<pre>Calculating mean flux and confidence intervals for iterations [1,101)
+target 'bound':
+  correlation length = w tau
+  mean flux and CI   = x (y, z) tau^(-1)</pre>
+More information on how to use <code>w_fluxanl</code> can be viewed using the <code>--help</code> flag. <code>w_fluxanl</code> also stores this information in an hdf5 file, <code>fluxanl.h5</code>.
+
+Presently, <code>w_fluxanl</code> has used the data from all 100 iterations (note the exclusive bracket after 101) to calculate the mean flux (x) and the 95% confidence interval (y, z) for reaching the bound state (target 'bound'), which we specified as less than 2.8 angstroms of separation in the <code>system.py</code> file and with the target state variable in <code>init.sh</code>. The value given for the flux also represents the association rate. Taking the inverse of the mean flux (1/x) will give the mean first passage time for Na<sup>+</sup>/Cl<sup>-</sup> in units of tau. We can further analyze the output of <code>w_fluxanl</code> by investigating the <code>fluxanl.h5</code> file. You can look at the data contained within the file by using programs such as h5ls or hdfview, but I am instead going to use h5py in python to analyze the data. Open up <code>ipython</code> in the interactive plotting mode:
+
+<pre>ipython --pylab</pre>
+and then enter the following commands:
+
+<pre>import h5py
+import numpy as np
+
+fluxanl = h5py.File('fluxanl.h5')
+fluxanl['target_flux']['index'][:]</pre>
+We can see that the dataset named ['index'] contains the output printed above by <code>w_fluxanl</code>. We can plot the flux using:
+
+<pre>flux = np.array(fluxanl['target_flux']['target_0']['flux'])
+plot(flux)</pre>
+The x-axis represents the iteration number recorded after the occurence of the first binding event. The y-axis represents the flux in units of tau<sup>-1</sup>. We can see that the instantaneous flux has settled after large fluctuations during the first part of the run, however the plot is also relatively noisy. To reduce noise, we can plot the time evolution flux. Run the <code>w_fluxanl</code> tool again, this time with the '--evol' flag at the end of the command. Running this command will add an HDF5 dataset named ['flux_evolution'] to the ['target_0'] group. To plot the time evolution flux, you can use the following python code, continuing from the above ipython session:
+
+<pre>mean_flux = fluxanl['target_flux']['target_0']['flux_evolution']['expected']
+ci_lb = fluxanl['target_flux']['target_0']['flux_evolution']['ci_lbound']
+ci_ub = fluxanl['target_flux']['target_0']['flux_evolution']['ci_ubound']
+plot(mean_flux, 'b', ci_lb, 'g', ci_ub, 'r')</pre>
+Compared to the first plot of the instantaneous flux, the time evolution plot is much less noisy. We can see that the flux is leveling off and the confience intervals have somewhat converged, meaning that the simulation is approaching steady-state conditions.
+
+=== Visualizing a selected pathway ===
+
+In order to visualize a binding event, you will need to stitch together the individual trajectory segments that start at the initial state and then reach the bound state. The introductory Amber tutorial &lt;amber_tutorial&gt; provides directions on how to extract the sequence of segments in a set of successful binding events, however the script to construct a visualization of the pathway will not work for this example since we have stored all of the relevant data directly in the <code>west.h5</code> file. For this example, we leave writing the necessary script as an exercise. To create a netcdf-formatted Amber trajectory file, you might want to take a look at [https://bitbucket.org/joshua.adelman/stringmethodexamples/raw/tip/shared/elasticnetwork-langevin/netcdf4storage.py netcdf4storage.py] or you might consider using the dcd writer built into OpenMM which can imported into python using:
+
+<pre>import simtk.openmm.app.dcdfile</pre>
+== Useful links ==
+
+* [http://openmm.org Official OpenMM web page]
+* [http://docs.openmm.org/6.2.0/userguide/index.html OpenMM tutorials from the official web page]
+
+== Useful hints ==
+
+* Make sure your paths are set correctly in <code>env.sh</code>
+* If the simulation doesn't stop properly with CTRL+C , use CTRL+Z.
+* Another method to stop the simulation relatively cleanly is to rename <code>runseg.sh</code>; WESTPA will shut the simulation down and prevent the hdf5 file from becoming corrupted. Some extra steps may be necessary to ensure that the analysis scripts can be run successfully.
+
+== References ==
+
+* Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular
+Dynamics Simulations of Molecular Association Kinetics: Methane/Methane,
+Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput.
+2011. &lt;http://pubs.acs.org/doi/abs/10.1021/ct100626x&gt;_
+
