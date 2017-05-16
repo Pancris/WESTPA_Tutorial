@@ -12,7 +12,7 @@ Author: Joshua Adelman
 
 Description: See site for description &amp; download.
 
-==== [https://gist.github.com/ajoshpratt/aba3ecb5d77bca9d3420 Report CPU/Wallclock Time] ====
+==== [Report CPU/Wallclock Time|https://gist.github.com/ajoshpratt/aba3ecb5d77bca9d3420 ] ====
 
 Author: Adam Pratt
 
@@ -20,7 +20,7 @@ Contact: [mailto:ajp105@pitt.edu?Subject=WallclockScript ajp105@pitt.edu]
 
 Description: Pulls wallclock and CPU time from a WESTPA .h5 file and prints it to the console. Useful for quickly converting this information into human readable format.
 
-==== [https://gist.github.com/ajd98/abd7cadd8017557582da Generate Free Energy Surface Evolution Movie] ====
+==== [Generate Free Energy Surface Evolution Movie|https://gist.github.com/ajd98/abd7cadd8017557582da] ====
 
 Author: Alex DeGrave
 
@@ -28,7 +28,7 @@ Contact: [mailto:ajd98@pitt.edu?Subject=FreeEnergyEvolutionMovieScript ajd98@pit
 
 Description: Generates a movie of the time evolution of a free energy surface from a WESTPA simulation. [https://www.dropbox.com/s/aeow7xi4jr35fgk/energy_surface_evolution.avi?dl=0 An example from a 2-dimensional, 2-well toy model].
 
-==== [https://gist.github.com/ajoshpratt/e751b38c869f477ee637 Sample Predicate Function for w_select] ====
+==== [Sample Predicate Function for w_select|https://gist.github.com/ajoshpratt/e751b38c869f477ee637] ====
 
 Author: Adam Pratt
 
