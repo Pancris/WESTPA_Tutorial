@@ -16,5 +16,5 @@ Video tutorials
 
 # Advanced Tutorials
 * [[Molecular Scale Systems|Molecular Scale Systems Tutorial]]
-* [[OpenMM]]
+* [[OpenMM|OpenMM Tutorial]]
 * [[Weighted ensemble-based string method|http://stringmethodexamples.readthedocs.io/en/latest/]]
