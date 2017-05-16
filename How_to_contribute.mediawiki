@@ -1,0 +1,561 @@
+<div id="mw-page-base" class="noprint">
+
+
+
+</div>
+<div id="mw-head-base" class="noprint">
+
+
+
+</div>
+<div id="content" class="mw-body">
+
+<span id="top"></span>
+<div id="mw-js-message" style="display:none;">
+
+
+
+</div>
+= <span dir="auto">WESTPA Wiki Style Guide</span> =
+
+<div id="bodyContent">
+
+<div id="siteSub">
+
+From Weighted Ensemble Wiki
+
+</div>
+<div id="contentSub">
+
+
+
+</div>
+<div id="jump-to-nav" class="mw-jump">
+
+Jump to: [[#mw-head|navigation]], [[#p-search|search]]
+
+</div>
+<div id="mw-content-text" class="mw-content-ltr" lang="en" dir="ltr">
+
+{|
+|width="100%"|
+<div id="toctitle">
+
+== Contents ==
+
+
+</div>
+* [[#Preface|<span class="tocnumber">1</span> <span class="toctext">Preface</span>]]
+* [[#Style_and_Usage|<span class="tocnumber">2</span> <span class="toctext">Style and Usage</span>]]
+** [[#Acronyms_and_abbreviations|<span class="tocnumber">2.1</span> <span class="toctext">Acronyms and abbreviations</span>]]
+** [[#Capitalization|<span class="tocnumber">2.2</span> <span class="toctext">Capitalization</span>]]
+** [[#Contractions|<span class="tocnumber">2.3</span> <span class="toctext">Contractions</span>]]
+** [[#Internationalization|<span class="tocnumber">2.4</span> <span class="toctext">Internationalization</span>]]
+** [[#Italics|<span class="tocnumber">2.5</span> <span class="toctext">Italics</span>]]
+** [[#Non-English_words|<span class="tocnumber">2.6</span> <span class="toctext">Non-English words</span>]]
+** [[#Specially_formatted_characters|<span class="tocnumber">2.7</span> <span class="toctext">Specially formatted characters</span>]]
+** [[#Subject|<span class="tocnumber">2.8</span> <span class="toctext">Subject</span>]]
+** [[#Tense|<span class="tocnumber">2.9</span> <span class="toctext">Tense</span>]]
+** [[#Voice|<span class="tocnumber">2.10</span> <span class="toctext">Voice</span>]]
+** [[#Weighted_ensemble|<span class="tocnumber">2.11</span> <span class="toctext">Weighted ensemble</span>]]
+** [[#WESTPA|<span class="tocnumber">2.12</span> <span class="toctext">WESTPA</span>]]
+* [[#Computer_Language_Elements|<span class="tocnumber">3</span> <span class="toctext">Computer Language Elements</span>]]
+** [[#Classes.2C_modules.2C_and_libraries|<span class="tocnumber">3.1</span> <span class="toctext">Classes, modules, and libraries</span>]]
+** [[#Methods_and_commands|<span class="tocnumber">3.2</span> <span class="toctext">Methods and commands</span>]]
+** [[#Programming_Lanuages|<span class="tocnumber">3.3</span> <span class="toctext">Programming Lanuages</span>]]
+** [[#Scripts|<span class="tocnumber">3.4</span> <span class="toctext">Scripts</span>]]
+** [[#Variables|<span class="tocnumber">3.5</span> <span class="toctext">Variables</span>]]
+|}
+
+== <span id="Preface" class="mw-headline">Preface</span> ==
+
+The WESTPA wiki should help the user to understand how WESTPA works and how to use it. To aid in effective communication, a number of guidelines appear below.
+
+When writing in the WESTPA wiki, please be:
+
+* Correct
+* Clear
+* Consistent
+* Concise
+
+Articles on this wiki should follow the guidelines on this page. However, there may be cases when following these guidelines will make an article confusing: when in doubt, use your best judgment and ask for the opinions of those around you.
+
+== <span id="Style_and_Usage" class="mw-headline">Style and Usage</span> ==
+
+=== <span id="Acronyms_and_abbreviations" class="mw-headline">Acronyms and abbreviations</span> ===
+
+* Software documentation often involves extensive use of acronyms and abbreviations.
+
+Acronym: A word formed from the initial letter or letters of each or most of the parts of a compound term ([http://www.merriam-webster.com/ Merriam-Webster])
+Abbreviation: A shortened form of a written word or name that is used in place of the full word or name ([http://www.merriam-webster.com/ Merriam-Webster])
+* Define non-standard acronyms and abbreviations on their first use by using the full-length term, followed by the acronym or abbreviation in parentheses.
+
+A potential of mean force (PMF) diagram may aid the user in visuallizing the energy landscape of the simulation.
+* Only use acronyms and abbreviations when they make an idea more clear than spelling out the full term. Consider clarity from the point of view of a new user who is intelligent but may have little experience with computers.
+
+Correct: The WESTPA wiki supports HyperText Markup Language (HTML). For example, the user may use HTML tags to give text special formatting. However, be sure to test that the HTML tag gives the desired effect by previewing edits before saving.
+Avoid: The WESTPA wiki supports HyperText Markup Language. For example, the user may use HyperText Markup Language tags to give text special formatting. However, be sure to test that the HyperText Markup Language tag gives the desired effect by previewing edits before saving.
+Avoid: For each iter, make sure to return the pcoord and any auxdata.
+* Use all capital letters for abbreviating file types. File extensions should be lowercase.
+
+HDF5, PNG, MP4, GRO, XTC
+west.h5, bound.png, unfolding.mp4, protein.gro, segment.xtc
+* Provide pronunciations for acronyms that may be difficult to sound out.
+* Do not use periods in acronyms and abbreviations except where it is customary:
+
+Correct: HTML, U.S.
+Avoid: H.T.M.L., US
+=== <span id="Capitalization" class="mw-headline">Capitalization</span> ===
+
+* Capitalize at the beginning of each sentence.
+* Do not capitalize after a semicolon.
+* Do not capitalize after a colon, unless multiple sentences follow the colon. In this case, capitalize each sentence.
+* Preserve the capitalization of computer language elements (commands, utilities, variables, modules, classes, and arguments).
+* Capitilize generic Python variables according to the [http://www.python.org/dev/peps/pep-0008/#class-names PEP 0008 Python Style Guide]. For example, generic class names should follow the ''CapWords'' convention.
+
+<code>GenericClass</code>
+=== <span id="Contractions" class="mw-headline">Contractions</span> ===
+
+* Do not use contractions. Contractions are a shortened version of word characterized by the omission of internal letters.
+
+Avoid: can't, don't, shouldn't
+* Possessive nouns are not contractions. Use possessive nouns freely.
+
+=== <span id="Internationalization" class="mw-headline">Internationalization</span> ===
+
+* Use short sentences (less than 25 words). Although we do not maintain WESTPA documentation in languages other than English, some users may use automatic translation programs. These programs function best with short sentences.
+* Do not use technical terms where a common term would be equally or more clear.
+* Use multiple simple sentences in place of a single complicated sentence.
+
+=== <span id="Italics" class="mw-headline">Italics</span> ===
+
+* Use italics (surround the term with ' ' two single quotes on each side) to highlight words that are not part of a sentence's normal grammer.
+
+The word ''istates'' refers to the initial states that WESTPA uses to begin trajectories.
+=== <span id="Non-English_words" class="mw-headline">Non-English words</span> ===
+
+* Avoid Latin words and abbreviations.
+
+Avoid: etc., et cetera, e.g., i.e.
+=== <span id="Specially_formatted_characters" class="mw-headline">Specially formatted characters</span> ===
+
+* Never begin a sentence with a specially formatted character. This includes abbreviations, variable names, and anything else this guide instructs to use with special tags. Sentences may begin with ''WESTPA''.
+
+Correct: The program <code>ls</code> allows the user to see the contents of a directory.
+Avoid: <code>ls</code> allows the user to see the contents of a directory.
+* Use the word ''and'' rather than an <code>&amp;</code> ampersand .
+* When a special character has a unique meaning to a program, first use the character surrounded by <code>&lt;code&gt;</code> tags and then spell it out.
+
+Correct: Append an <code>&amp;</code> ampersand to a command to let it run in the background.
+Avoid: Append an &quot;&amp;&quot; to a command... Append an <code>&amp;</code> to a command... Append an ampersand to a command...
+* There are many names for the <code>#</code> hash mark, including hash tag, number sign, pound sign, and octothorpe. Refer to this symbol as a ''hash mark''.
+
+=== <span id="Subject" class="mw-headline">Subject</span> ===
+
+* Refer to the end WESTPA user as ''the user'' in software documentation.
+
+The user should use the <code>processes</code> work manager to run segments in parallel on a single node.
+* Refer to the end WESTPA user as ''you'' in tutorials (you is the implied subject of commands). It is also acceptable to use personal pronouns such as ''we'' and ''our''. Be consistent within the tutorial.
+
+You should have two files in this directory, named <code>system.py</code> and <code>west.cfg</code>.
+=== <span id="Tense" class="mw-headline">Tense</span> ===
+
+* Use ''should'' to specify proper usage.
+
+The user should run <code>w_truncate -n iter</code> to remove iterations after and including iter from the HDF5 file specified in the WESTPA configuration file.
+* Use ''will'' to specify expected results and output.
+
+WESTPA will create a HDF5 file when the user runs <code>w_init</code>.
+=== <span id="Voice" class="mw-headline">Voice</span> ===
+
+* Use active voice. Passive voice can obscure a sentence and add unnecessary words.
+
+Correct: WESTPA will return an error if the sum of the weights of segments does not equal one.
+Avoid: An error will be returned if the sum of the weights of segments does not equal one.
+=== <span id="Weighted_ensemble" class="mw-headline">Weighted ensemble</span> ===
+
+* Refer to weighted ensemble in all lowercase, unless at the beginning of a sentence. Do not hyphenate.
+
+Correct: WESTPA is an implementation of the weighted ensemble algorithm.
+Avoid: WESTPA is an implementation of the weighted-ensemble algorithm.
+Avoid  : WESTPA is an implementation of the Weighted Ensemble algorithm.
+=== <span id="WESTPA" class="mw-headline">WESTPA</span> ===
+
+* Refer to WESTPA in all capitals. Do not use bold, italics, or other special formatting except when another guideline from this style guide applies.
+
+Install the WESTPA software package.
+* The word ''WESTPA'' may refer to the software package or a entity of running software.
+
+WESTPA includes a number of analysis utilities.
+WESTPA will return an error if the user does not supply a configuration file.
+<br />
+
+
+== <span id="Computer_Language_Elements" class="mw-headline">Computer Language Elements</span> ==
+
+=== <span id="Classes.2C_modules.2C_and_libraries" class="mw-headline">Classes, modules, and libraries</span> ===
+
+* Use the <code>&lt;code&gt;</code> tag for specific class names.
+
+<code>WESTPropagator</code>
+The <code>numpy</code> library provides access to various low-level mathematical and scientific calculation routines.
+* Use the <code>&lt;var&gt;</code> tag for generic class names. Generic class names should be relevant to the properties of the class; do not use ''foo'' or ''bar''
+
+<code>class UserDefinedBinMapper(RectilinearBinMapper)</code>
+=== <span id="Methods_and_commands" class="mw-headline">Methods and commands</span> ===
+
+* Refer to a method by its name without parentheses, and without prepending the name of its class. Display methods in fixed-width font using the <code>&lt;code&gt;</code> tag.
+
+Correct: the <code>arange</code> method of the <code>numpy</code> library
+Avoid: the <code>arange()</code> method of the <code>numpy</code> library
+Avoid: the <code>numpy.arange</code> method
+* When referring to the arguments that a method expects, mention the method without arguments first, and then use the method's name followed by parenthesis and arguments. Use the <code>&lt;var&gt;</code> tag for generic arguments.
+
+WESTPA calls the <code>assign</code> method as <code>assign(coords, mask=None, output=None)</code>
+* Never use a method or command as a verb.
+
+Correct: Run <code>cd</code> to change the current working directory.
+Avoid: <code>cd</code> into the main simulation directory.
+=== <span id="Programming_Lanuages" class="mw-headline">Programming Lanuages</span> ===
+
+* Some programming languages are both a language and a command. When referring to the language, capitalize the word and use standard font. When referring to the command, preserve capitalization as it would appear in a terminal and use <code>&lt;code&gt;</code> tags.
+
+Using WESTPA requires some knowledge of Python.
+Run <code>python</code> to launch an interactive session.
+The Bash shell provides some handy capabilities, such as wildcard matching.
+Use <code>bash</code> to run <code>example.sh</code>.
+=== <span id="Scripts" class="mw-headline">Scripts</span> ===
+
+* Use the <code>&lt;pre class='prettyprint'&gt;</code> tag for short scripts. Options are available for some languages, such as <code>&lt;pre class=&quot;prettyprint bash&quot;&gt;</code> and <code>&lt;pre class=&quot;prettyprint python&quot;&gt;</code>.
+
+<source lang="bash">#!/bin/bash
+# This is a generic Bash script. 
+
+BASHVAR="Hello, world!"
+echo $BASHVAR</source>
+<source lang="python">#!/usr/bin/env python
+# This is a generic Python script. 
+
+def main():
+    pythonstr = "Hello, world!"
+    print(pythonstr)
+    return
+if __name__ == "__main__":
+    main()</source>
+* Begin a code snippet with a <code>#!</code> ''shebang'' (yes, this is the real term), followed by the usual path to a program. The line after the shebang should be an ellipsis, followed by lines of code. Use <code>#!/bin/bash</code> for Bash scripts, <code>#!/bin/sh</code> for generic shell scripts, and <code>#!/usr/bin/env python</code> for Python scripts. For Python code snippets that are not a stand-alone script, place any import commands between the shebang line and ellipsis.
+
+<source lang="python">#!/usr/bin/env python
+import numpy
+...
+def some_function(generic_vals):
+    return 1 + numpy.mean(generic_vals)</source>
+* Follow the [[/www.python.org/dev/peps/pep-0008/#class-names|PEP 0008 Python Style Guide]] for Python scripts.
+** Indents are four spaces.
+** For comments, use the <code>#</code> hash mark followed by a single space, and then the comment's text.
+** Break lines after 80 characters.
+* For Bash scripts, consider following [https://google-styleguide.googlecode.com/svn/trunk/shell.xml Google's Shell Style Guide].
+** Indents are two spaces.
+** Use blank lines to improve readability
+** Use <code>; do</code> and <code>; then</code> on the same line as <code>while</code>, <code>for</code>, and <code>if</code>.
+** Break lines after 80 characters.
+* For other languages, consider following a logical style guide. At minimum, be consistent.
+
+=== <span id="Variables" class="mw-headline">Variables</span> ===
+
+* Use the <code>&lt;code&gt;</code> tag when referring to a specific variable (for example, a default attribute of a WESTPA class).
+
+the <code>ndim</code> attribute
+* Use the <code>&lt;var&gt;</code> tag when referring to a generic variable.
+
+Create a some variable my_var and check its class by printing its <code>__class__</code> attribute.
+* When explicitly referring to an attribute as well as its class, refer to an attribute as: the <code>attr</code> attribute of <code>GenericClass</code>, rather than <code>GenericClass.attr</code>
+* Use the <code>$</code> dollar sign before Bash variables.
+
+WESTPA makes the variable <code>$WEST_BSTATE_DATA_REF</code> available to new trajectories.
+
+</div>
+<div class="printfooter">
+
+Retrieved from &quot;https://chong.chem.pitt.edu/_wewiki/index.php?title=WESTPA_Wiki_Style_Guide&oldid=2221&quot;
+
+</div>
+<div id="catlinks" class="catlinks catlinks-allhidden">
+
+
+
+</div>
+<div class="visualClear">
+
+
+
+</div>
+
+</div>
+
+</div>
+<div id="mw-head" class="noprint">
+
+<div id="p-personal">
+
+===== Personal tools =====
+
+<ul>
+<li><div id="pt-login">
+
+
+
+</div>
+[[_wewiki/index.php?title=Special:UserLogin&returnto=WESTPA+Wiki+Style+Guide|Log in]]</li></ul>
+
+
+</div>
+<div id="left-navigation">
+
+<div id="p-namespaces" class="vectorTabs">
+
+===== Namespaces =====
+
+<ul>
+<li><div id="ca-nstab-main">
+
+
+
+</div>
+<span>[[wewiki/WESTPA_Wiki_Style_Guide|Page]]</span></li>
+<li><div id="ca-talk">
+
+
+
+</div>
+<span>[[_wewiki/index.php?title=Talk:WESTPA_Wiki_Style_Guide&action=edit&redlink=1|Discussion]]</span></li></ul>
+
+
+</div>
+<div id="p-variants" class="vectorMenu emptyPortlet">
+
+====  ====
+
+===== <span>Variants</span>[[#|]] =====
+
+<div class="menu">
+
+
+
+
+</div>
+
+</div>
+
+</div>
+<div id="right-navigation">
+
+<div id="p-views" class="vectorTabs">
+
+===== Views =====
+
+<ul>
+<li><div id="ca-view">
+
+
+
+</div>
+<span>[[wewiki/WESTPA_Wiki_Style_Guide|Read]]</span></li>
+<li><div id="ca-viewsource">
+
+
+
+</div>
+<span>[[_wewiki/index.php?title=WESTPA_Wiki_Style_Guide&action=edit|View source]]</span></li>
+<li><div id="ca-history">
+
+
+
+</div>
+<span>[[_wewiki/index.php?title=WESTPA_Wiki_Style_Guide&action=history|View history]]</span></li></ul>
+
+
+</div>
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+
+===== <span>Actions</span>[[#|]] =====
+
+<div class="menu">
+
+
+
+
+</div>
+
+</div>
+<div id="p-search">
+
+===== Search =====
+
+<div>
+
+
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div id="mw-panel" class="noprint">
+
+<div id="p-logo">
+
+[[wewiki/Main_Page|]]
+
+</div>
+<div id="p-navigation" class="portal">
+
+===== Navigation =====
+
+<div class="body">
+
+<ul>
+<li><div id="n-Main-Page">
+
+
+
+</div>
+[[wewiki/Main_Page|Main Page]]</li>
+<li><div id="n-Obtaining-the-WESTPA-code">
+
+
+
+</div>
+[[wewiki/Main_Page#Obtaining_the_WESTPA_Code|Obtaining the WESTPA code]]</li>
+<li><div id="n-WESTPA-Documentation">
+
+
+
+</div>
+[[wewiki/WESTPA_documentation|WESTPA Documentation]]</li>
+<li><div id="n-WESTPA-Tutorials">
+
+
+
+</div>
+[[wewiki/WESTPA_tutorials|WESTPA Tutorials]]</li>
+<li><div id="n-FAQ">
+
+
+
+</div>
+[[wewiki/Frequently_asked_questions_(FAQ)|FAQ]]</li>
+<li><div id="n-How-to-Contribute">
+
+
+
+</div>
+[[wewiki/WESTPA_Wiki_Style_Guide|How to Contribute]]</li>
+<li><div id="n-Recent-Changes">
+
+
+
+</div>
+[[wewiki/Special:RecentChanges|Recent Changes]]</li>
+<li><div id="n-Wiki-Help">
+
+
+
+</div>
+[[wewiki/Help:Contents|Wiki Help]]</li></ul>
+
+
+</div>
+
+</div>
+<div id="p-tb" class="portal">
+
+===== Toolbox =====
+
+<div class="body">
+
+<ul>
+<li><div id="t-whatlinkshere">
+
+
+
+</div>
+[[wewiki/Special:WhatLinksHere/WESTPA_Wiki_Style_Guide|What links here]]</li>
+<li><div id="t-recentchangeslinked">
+
+
+
+</div>
+[[wewiki/Special:RecentChangesLinked/WESTPA_Wiki_Style_Guide|Related changes]]</li>
+<li><div id="t-specialpages">
+
+
+
+</div>
+[[wewiki/Special:SpecialPages|Special pages]]</li>
+<li>[[_wewiki/index.php?title=WESTPA_Wiki_Style_Guide&printable=yes|Printable version]]</li>
+<li><div id="t-permalink">
+
+
+
+</div>
+[[_wewiki/index.php?title=WESTPA_Wiki_Style_Guide&oldid=2221|Permanent link]]</li></ul>
+
+
+</div>
+
+</div>
+
+</div>
+<div id="footer">
+
+<ul>
+<li><div id="footer-info-lastmod">
+
+
+
+</div>
+This page was last modified on 17 July 2015, at 15:44.</li>
+<li><div id="footer-info-viewcount">
+
+
+
+</div>
+This page has been accessed 540 times.</li></ul>
+
+<ul>
+<li><div id="footer-places-privacy">
+
+
+
+</div>
+[[wewiki/Weighted_Ensemble_Wiki:Privacy_policy|Privacy policy]]</li>
+<li><div id="footer-places-about">
+
+
+
+</div>
+[[wewiki/Weighted_Ensemble_Wiki:About|About Weighted Ensemble Wiki]]</li>
+<li><div id="footer-places-disclaimer">
+
+
+
+</div>
+[[wewiki/Weighted_Ensemble_Wiki:General_disclaimer|Disclaimers]]</li></ul>
+
+<ul>
+<li><div id="footer-poweredbyico">
+
+
+
+</div>
+[[/www.mediawiki.org/|[[File:/_wewiki/skins/common/images/poweredby_mediawiki_88x31.png|88x31px|Powered by MediaWiki]]]]</li></ul>
+
+<div style="clear:both">
+
+
+
+</div>
+
+</div>
