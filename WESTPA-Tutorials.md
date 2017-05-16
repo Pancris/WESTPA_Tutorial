@@ -1,13 +1,20 @@
 # Introductory Tutorials
 
+In wiki tutorials
 * [[Quickstart Guide|quickstart-guide]]
 * [[Introductory Tutorial: GROMACS|Gromacs Tutorial]]
 * [[Introductory Tutorial: AMBER|Amber Tutorial]]
 * [[Introductory Tutorial: NAMD|NAMD Tutorial]]
-* [[Introductory Tutorial: BioNetGen (systems biology software)|BioNetGen Tutorial]]
+* [[Chignolin Tutorial|chignolin-tutorial]]
 * [[Introductory Tutorial: How to change the progress coordinate on-the-fly|Change progress coordinate tutorial]]
-* [[Introductory Tutorial: Analysis tools|Analysis Tools Tutorial]]
-* [[WESTPA Workshop Tutorials]]
+
+Video tutorials
+* [[An introduction to WESTPA|https://www.youtube.com/watch?v=YpltPzpcmLY&ab_channel=WESTPATutorials]]
+* [[Introductory Tutorial: BioNetGen (systems biology software)|https://www.youtube.com/watch?v=rY-IJcLFiaM&ab_channel=WESTPATutorials]]
+* [[Introductory Tutorial: Analysis tools|https://www.youtube.com/watch?v=rMFvcHOOxZc&ab_channel=WESTPATutorials]]
+
 
 # Advanced Tutorials
-* [[Chignolin Tutorial|chignolin-tutorial]]
+* [[Molecular Scale Systems|Molecular Scale Systems Tutorial]]
+* [[OpenMM]]
+* [[Weighted ensemble-based string method|http://stringmethodexamples.readthedocs.io/en/latest/]]
