@@ -6,7 +6,7 @@ Where appropriate, please use a git/mercurial repository, and link to the repo f
 
 == Scripts ==
 
-==== [https://stringmethodexamples.readthedocs.org/en/latest/%20Weighted%20Ensemble-based%20String%20Method Weighted Ensemble-Based String Method] ====
+==== [[Weighted Ensemble-Based String Method|https://stringmethodexamples.readthedocs.org/en/latest/%20Weighted%20Ensemble-based%20String%20Method]] ====
 
 Author: Joshua Adelman
 
