@@ -1,11 +1,11 @@
 = Introductory Tutorials =
 
 In wiki tutorials 
-* [[Quickstart Guide|quickstart-guide]] 
-* [[Introductory Tutorial: GROMACS|Gromacs Tutorial]] 
-* [[Introductory Tutorial: AMBER|Amber Tutorial]] 
-* [[Introductory Tutorial: NAMD|NAMD Tutorial]] 
-* [[Chignolin Tutorial|chignolin-tutorial]]
+* [[Quickstart Guide|Quickstart Guide]] 
+* [[Gromacs Tutorial|Introductory Tutorial: GROMACS]] 
+* [[Amber Tutorial|Introductory Tutorial: AMBER]] 
+* [[NAMD Tutorial|Introductory Tutorial: NAMD]] 
+* [[Chignolin Tutorial|Chignolin Tutorial]]
 
 Video tutorials 
 * [[An introduction to WESTPA|https://www.youtube.com/watch?v=YpltPzpcmLY&amp;ab_channel=WESTPATutorials]] 
@@ -15,6 +15,6 @@ Video tutorials
 = Advanced Tutorials =
 
 * [[Molecular Scale Systems|Molecular Scale Systems Tutorial]]
-* [[OpenMM|OpenMM Tutorial]]
+* [[OpenMM Tutorial|OpenMM]]
 * [[Weighted ensemble-based string method|http://stringmethodexamples.readthedocs.io/en/latest/]]
 
