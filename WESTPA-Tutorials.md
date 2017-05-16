@@ -6,7 +6,6 @@ In wiki tutorials
 * [[Introductory Tutorial: AMBER|Amber Tutorial]]
 * [[Introductory Tutorial: NAMD|NAMD Tutorial]]
 * [[Chignolin Tutorial|chignolin-tutorial]]
-* [[Introductory Tutorial: How to change the progress coordinate on-the-fly|Change progress coordinate tutorial]]
 
 Video tutorials
 * [[An introduction to WESTPA|https://www.youtube.com/watch?v=YpltPzpcmLY&ab_channel=WESTPATutorials]]
