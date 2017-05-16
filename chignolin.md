@@ -189,7 +189,7 @@ for I in xrange(1,totNumIter+1):
       print counter, firstcoord[0],firstcoord[-1]</pre>
 In this example, we define the folded state as any structure with a C-alpha RMSD less than 2.5A. As shown in the plot, folding events occur after the first 20ns of simulation.
 
-[[File:../_static/chig_minmax.png|frame|none]]
+[[File:_static/chig_minmax.png|frame|none]]
 
 Computing the folding rate constant
 
@@ -217,7 +217,7 @@ pylab.plot(flux)
 pylab.xlabel(&quot;Iteration&quot;)
 pylab.ylabel(&quot;Instantaneous Flux $(\\frac{1}{\\tau})$&quot;)
 pylab.show()</pre>
-[[File:../_static/chig_flux1.png|frame|none]]
+[[File:_static/chig_flux1.png|frame|none]]
 
 The x-axis represents the iteration number, and the y-axis the flux into the bound state in units of τ<sup>-1</sup>. For my simulation, the first binding event occurred in iteration 289. The instantaneous flux is noisy and can be difficult to interpret, so let's plot the time evolution of flux as well. Run '''w_fluxanl''' again, this time with the '--evol' flag.
 
@@ -238,7 +238,7 @@ pylab.xlim([289,300])
 pylab.xlabel(&quot;Iteration&quot;)
 pylab.ylabel(&quot;Mean Flux $(\\frac{1}{\\tau})$&quot;)
 pylab.show()</pre>
-[[File:../_static/chig_flux2.png|frame|none]]
+[[File:_static/chig_flux2.png|frame|none]]
 
 Since our simulation is relatively short, we do not expect to observe a constant flux and the end of the simulation. The mean flux obtained from the output of '''w_fluxanl''' for our simulation was 5.03 x 10<sup>-3</sup> in units of τ<sup>-1</sup>. Since τ for our simulation was 1ps, the folding rate is 5.03 x 10<sup>-3</sup> ps<sup>-1</sup> with a 95% CI of 4.2 x10<sup>-4</sup> to 1.18 x10<sup>-2</sup>. In order to obtain a more precise association rate and a relatively constant flux, the user would need to run more iterations of the simulation, which may easily be done by changing ''west.cfg''.
 
