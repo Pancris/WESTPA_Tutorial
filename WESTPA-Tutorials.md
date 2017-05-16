@@ -1,7 +1,7 @@
 # Introductory Tutorials
 
 * [[Quickstart Guide|quickstart-guide]]
-* Introductory Tutorial: GROMACS
+* [[Introductory Tutorial: GROMACS|Gromacs Tutorial]]
 * Introductory Tutorial: AMBER
 * Introductory Tutorial: NAMD
 * Introductory Tutorial: BioNetGen (systems biology software)
