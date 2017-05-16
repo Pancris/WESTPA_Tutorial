@@ -1,6 +1,6 @@
 # Introductory Tutorials
 
-* Quickstart Guide
+* [[Quickstart Guide|Quickstart-guide]]
 * Introductory Tutorial: GROMACS
 * Introductory Tutorial: AMBER
 * Introductory Tutorial: NAMD
