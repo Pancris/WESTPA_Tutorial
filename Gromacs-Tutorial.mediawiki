@@ -248,7 +248,7 @@ pylab.plot(mean_flux, 'b', ci_lb, 'g', ci_ub, 'r')
 pylab.xlabel(&quot;Iteration&quot;)
 pylab.ylabel(&quot;Mean Flux $(\\frac{1}{\\tau})$&quot;)
 pylab.show()</pre>
-[[File:../_static/nacl_gromacs_flux_evolution.png|frame|none]]
+
 [[https://github.com/westpa/westpa/raw/master/_static/nacl_gromacs_flux_evolution.png]]
 
 We can see that the flux has plateaued, indicating that the simulation has reached steady-state conditions. When calculating the rate, we discard the portion of data during which the system is equilibrating, using only portion over which the rates are steady and converging. We may calculate the rate using only the last 50 iterations:
