@@ -228,7 +228,7 @@ pylab.plot(flux)
 pylab.xlabel(&quot;Iteration&quot;)
 pylab.ylabel(&quot;Instantaneous Flux $(\\frac{1}{\\tau})$&quot;)
 pylab.show()</pre>
-[[File:https://github.com/westpa/westpa/blob/master/doc/_static/nacl_gromacs_flux_instantaneous.png]]
+[[File:https://github.com/westpa/westpa/raw/master/doc/_static/nacl_gromacs_flux_instantaneous.png]]
 
 The x-axis represents the iteration number, and the y-axis the flux into the bound state in units of τ<sup>-1</sup> during that iteration. In the above simulation, the first transition to the unbound state occurred in iteration 2, and the first transition to the bound state occurred in iteration 3. The instantaneous flux is noisy and difficult to interpret, and it is clearer to view the time evolution of the flux. Run <code>w_fluxanl</code> again, this time with the <code>--evol</code> flag:
 
