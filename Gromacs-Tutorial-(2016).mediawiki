@@ -126,14 +126,14 @@ This script calculates the progress coordinate from the initial states. Our prog
 === west.cfg ===
 
 This file contains the WESTPA configuration, including:
-- the binning scheme
-- the bin boundaries
-- the number fo walkers per bin
-- the number of frames to be output per segment
-- the number of iterations to run
-- the maximum wallclock time
-- the locations of various scripts
-- the nature of the anticipated output
+* the binning scheme
+* the bin boundaries
+* the number fo walkers per bin
+* the number of frames to be output per segment
+* the number of iterations to run
+* the maximum wallclock time
+* the locations of various scripts
+* the nature of the anticipated output
 For this system we use 22 bins as defined by [http://pubs.acs.org/doi/abs/10.1021/ct100626x Zwier, Kaus, and Chong], and 24 walkers per bin. Some optional functions, such as the ability to run a designated script before each iteration, are listed but unused in this tutorial.
 
 === aux_functions.py ===
@@ -242,13 +242,14 @@ Analysis schemes are defined in the WESTPA configuration file <code>west.cfg</co
 </pre>
 
 The <code>w_ipa</code> tool will analyze the simulation by figuring out which bin each trajectory segment exists in, at each time point. Then the tool will calculate fluxes and estimate rate constants between the states. Options regarding this analysis should be specified in the WESTPA configuration file <code>west.cfg</code>, as exemplified above.  
-  - <code>directory</code>: specifies the directory where analysis files are stored.  
-  - <code>analysis_schemes</code>: Under this subheading, one or more "analysis schemes" may be specified; each analysis scheme comprises a set of analysis parameters. Using multiple analysis schemes is a convenient way to test out the effect of different parameters on your results.
-  - <code>bins</code>: Here we specify binning parameters for analysis of the simulation, which may be the same or different from binning parameters used during the course of the weighted ensemble simulation.  Both the type of bin mapper and bin boundaries should be specified.   
-  - <code>states</code>: Here we specify states, which are defined as collections of one or more bins.  During the analysis, rate constants and fluxes will be calculated from each state to every other state.  Often times, you may want the states to correpond to a physically meaningful partition of the state space, such as bound and unbound states.  Each state should have a label.  Boundaries of the state are specified using a list of coordinates; each of these coordinates is assigned to a bin, as defined in the <code>bins</code> section of the yaml file, under <code>analysis_schemes</code>.  Each bin to which a coordinate is assigned is then a member of the state being defined.  For example, <code>- [0,1]</code> would specify that all bins including progress coordinates 0 or 1 would be included in the corresponding state.
-  - <code>kinetics</code>: Options specific to analyzing the kinetics
-  - <code>step_iter</code>: When analyzing and averaging kinetic data, skip ahead by 10 WE iterations at time.
-  - <code>evolution</code>: Here we specify how to average kinetic data.  Here, we cumulatively average.
+
+  * <code>directory</code>: specifies the directory where analysis files are stored.  
+  * <code>analysis_schemes</code>: Under this subheading, one or more "analysis schemes" may be specified; each analysis scheme comprises a set of analysis parameters. Using multiple analysis schemes is a convenient way to test out the effect of different parameters on your results.
+  * <code>bins</code>: Here we specify binning parameters for analysis of the simulation, which may be the same or different from binning parameters used during the course of the weighted ensemble simulation.  Both the type of bin mapper and bin boundaries should be specified.   
+  * <code>states</code>: Here we specify states, which are defined as collections of one or more bins.  During the analysis, rate constants and fluxes will be calculated from each state to every other state.  Often times, you may want the states to correpond to a physically meaningful partition of the state space, such as bound and unbound states.  Each state should have a label.  Boundaries of the state are specified using a list of coordinates; each of these coordinates is assigned to a bin, as defined in the <code>bins</code> section of the yaml file, under <code>analysis_schemes</code>.  Each bin to which a coordinate is assigned is then a member of the state being defined.  For example, <code>- [0,1]</code> would specify that all bins including progress coordinates 0 or 1 would be included in the corresponding state.
+  * <code>kinetics</code>: Options specific to analyzing the kinetics
+  * <code>step_iter</code>: When analyzing and averaging kinetic data, skip ahead by 10 WE iterations at time.
+  * <code>evolution</code>: Here we specify how to average kinetic data.  Here, we cumulatively average.
 
 Parameters may be specified globally or for each analysis scheme individually.  In the example at hand, the options under the keyword <code>kinetics</code> are applied to every analysis scheme (though here we only have one analysis scheme).  Alternatively, the same options could be specified under each analysis scheme.
 
