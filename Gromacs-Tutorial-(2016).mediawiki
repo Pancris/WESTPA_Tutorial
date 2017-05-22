@@ -335,7 +335,7 @@ s[(2,0)]
 
 This will return a list of the segment indices for each segment that successfully transitioned from the initial state to the bound state.  You can check the state labels by typing <code>w.state_labels</code> from the <code>w_ipa</code> prompt.  Here, the initial state is 'Unknown' because we did not give it a state label in the file <code>west.cfg</code>.
 
-Next, trace the trajectory's history using the method <code>w.trace</code>. For example, if the segment 476 was successful, type <code>t = w.trace(476)</code>.
+Next, trace the trajectory's history using the method <code>w.trace</code>. For example, if segment 476 was successful, type <code>t = w.trace(476)</code>.
 
 Using atomic coordinates stored in <code>west.h5</code>, we can generate a complete trajectory viewable using [http://www.ks.uiuc.edu/Research/vmd Visual Molecular Dynamics]. To do so, we may use the module <code>utils.py</code>, included in the example simulation directory:
 
