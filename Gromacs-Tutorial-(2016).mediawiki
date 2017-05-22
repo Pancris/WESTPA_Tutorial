@@ -326,13 +326,13 @@ In [1]: w.current.direct.target_flux_evolution
 
 Out [1]:
 target_flux_evolution data:
-unbound: mean=9.040678298875157e-02 CI=(6.280085279762856e-02, 1.238036977031272e-01) * tau^-1
-bound  : mean=2.440204133262763e-01 CI=(1.866771079625953e-01, 3.336673176295779e-01) * tau^-1
+bound: mean=1.466026797833245e-02 CI=(1.286366529600176e-02, 1.656786609100170e-02) * tau^-1
+unbound  : mean=1.291222773983755e-01 CI=(1.224936915710897e-01, 1.350780659287130e-01) * tau^-1
 To access data, index via the following names:
 ['ci_lbound', 'ci_ubound', 'corr_len', 'error', 'expected', 'iter_start', 'iter_stop', 'name', 'plot', 'raw', 'sterr']
 </pre>
 
-Your output should be within an order of magnitude.  Since τ for our simulation was 0.5ps, in order to determine the association rate in units of ps<sup>-1</sup>, the flux should be multiplied by 2, giving an association rate of 2.1×10<sup>-2</sup> with a 95% CI of 1.8×10<sup>-2</sup> to 2.3×10<sup>-2</sup>. In order to obtain a more precise association, we could try running more iterations of the simulation, which may be done by editing west.cfg.
+Your output should be within an order of magnitude.  Since τ for our simulation was 0.5ps, in order to determine the association rate in units of ps<sup>-1</sup>, the flux should be multiplied by 2, giving an association rate of 2.9×10<sup>-2</sup> with a 95% CI of 2.6×10<sup>-2</sup> to 3.3×10<sup>-2</sup>. In order to obtain a more precise association rate constant, we could try running more iterations of the simulation, which may be done by editing west.cfg.
 
 
 === Visualizing a selected pathway ===
