@@ -248,7 +248,7 @@ The <code>w_ipa</code> tool will analyze the simulation by figuring out which bi
 ! Description
 |-
 | <code>directory</code>
-| specifies the directory where analysis files are stored.  
+| Specifies the directory where analysis files are stored  
 |-
 | <code>analysis_schemes</code>
 | Under this subheading, one or more "analysis schemes" may be specified; each analysis scheme comprises a set of analysis parameters. Using multiple analysis schemes is a convenient way to test out the effect of different parameters on your results.
@@ -263,7 +263,7 @@ The <code>w_ipa</code> tool will analyze the simulation by figuring out which bi
 | Options specific to analyzing the kinetics
 |-
 | <code>step_iter</code>
-| When analyzing and averaging kinetic data, skip ahead by 10 WE iterations at time.
+| When analyzing and averaging kinetic data, skip ahead in blocks of the specified number of WE iterations.
 |-
 | <code>evolution</code>
 | Here we specify how to average kinetic data.  Here, we cumulatively average.
@@ -272,16 +272,6 @@ The <code>w_ipa</code> tool will analyze the simulation by figuring out which bi
 Parameters may be specified globally or for each analysis scheme individually.  In the example at hand, the options under the keyword <code>kinetics</code> are applied to every analysis scheme (though here we only have one analysis scheme).  Alternatively, the same options could be specified under each analysis scheme.
 
 To run the analysis, simply run <code>w_ipa</code> from the simulation directory.  <code>w_ipa</code> will automatically perform analyses that need to be performed or load up the analysis files if they have already been completed.  After running the analyses, <code>w_ipa</code> will drop you to an <code>ipython</code>-like interactive python interpreter.  From here, you have access to WESTPA datasets and a variety of analysis routines through the <code>w</code> object.
-
-In order to plot the instantaneous flux into the bound state, type the following commands:
-<pre>
-import matplotlib.pyplot as pyplot
-pyplot.plot(w.current.direct.total_fluxes[:,0])
-pyplot.xlabel('Iteration ')
-pyplot.ylabel(u'Instantaneous Flux 1/\u03c4')
-pyplot.show()
-</pre>
-[[_static/nacl_gromacs_flux_instantaneous.png]]
 
 In order to plot the cumulatively averaged flux into the bound state, type the following commands:
 
@@ -296,6 +286,8 @@ pyplot.ylabel(u'Mean Flux 1/\u03c4')
 pyplot.show()
 </pre>
 
+[[_static/nacl_gromacs_flux_evolution_pyplot.png]]
+
 The x-axis represents the iteration number, and the y-axis represents the flux into the bound state in units of τ<sup>-1</sup>.  
 
 Alternatively, we can plot the flux into the bound state using the built-in terminal-based plotter of <code>w_ipa</code>.  
@@ -303,6 +295,8 @@ Alternatively, we can plot the flux into the bound state using the built-in term
 <pre>
 w.current.direct.target_flux_evolution.plot()
 </pre>
+
+[[_static/nacl_gromacs_flux_evolution_terminal.png]]
 
 We can see that the flux has plateaued, indicating that the simulation has reached steady-state conditions.  When calculating the rate, we discard the portion of data during which the system is equilibrating, using only the portion over which the rates are steady and converging.  We may calculate the rate using only the last 50 iterations. To do so, exit <code>w_ipa</code> and add another line to <code>west.cfg</code>, under the <code>kinetics</code> section of <code>analysis</code>:
 
@@ -317,8 +311,9 @@ We can see that the flux has plateaued, indicating that the simulation has reach
 Then run <code>w_ipa</code> again.  To see the final flux into the bound state, type the following from the <code>w_ipa</code> interactive interpreter:
 
 <pre>
-w.current.direct.target_flux_evolution
+In [1]: w.current.direct.target_flux_evolution
 
+Out [1]:
 target_flux_evolution data:
 unbound: mean=9.040678298875157e-02 CI=(6.280085279762856e-02, 1.238036977031272e-01) * tau^-1
 bound  : mean=2.440204133262763e-01 CI=(1.866771079625953e-01, 3.336673176295779e-01) * tau^-1
