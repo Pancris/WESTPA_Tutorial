@@ -273,30 +273,41 @@ Parameters may be specified globally or for each analysis scheme individually.  
 
 To run the analysis, simply run <code>w_ipa</code> from the simulation directory.  <code>w_ipa</code> will automatically perform analyses that need to be performed or load up the analysis files if they have already been completed.  After running the analyses, <code>w_ipa</code> will drop you to an <code>ipython</code>-like interactive python interpreter.  From here, you have access to WESTPA datasets and a variety of analysis routines through the <code>w</code> object.
 
-In order to plot the cumulatively averaged flux into the bound state, type the following commands:
+We can plot the cumulatively averaged flux into the bound state using the build-in terminal-based plotter of <code>w_ipa</code>.  First, we will check what state index should be passed to the plotting function.  To check the state labels and their corresponding indices, type the following command:
+
+<pre>
+In [1]: w.state_labels
+
+Out [1]:
+State labels and definitions!
+0: bound
+1: unbound
+2: Unknown
+</pre>
+
+We can see that the bound state corresponds to index 0.  Therefore, to plot the flux into the bound state, type:
+
+<pre>
+w.current.direct.target_flux_evolution.plot(0)
+</pre>
+
+[[_static/nacl_gromacs_flux_evolution_terminal.png]]
+
+The x-axis represents the iteration number, and the y-axis represents the flux into the bound state in units of τ<sup>-1</sup>.  
+
+Alternatively, we can plot the flux into the bound state using <code>pyplot</code>:
 
 <pre>
 import matplotlib.pyplot as pyplot
-pyplot.clf()
-pyplot.plot(w.direct[target_flux_evolution]['expected'][0], color='blue')
-pyplot.plot(w.direct[target_flux_evolution]['ci_lbound'][0], color='green')
-pyplot.plot(w.direct[target_flux_evolution]['ci_ubound'][0], color='red')
-pyplot.xlabel('Iteration ')
-pyplot.ylabel(u'Mean Flux 1/\u03c4')
+pyplot.plot(w.direct['target_flux_evolution']['expected'][:,0], color='black')
+pyplot.plot(w.direct['target_flux_evolution']['ci_lbound'][:,0], color='gray')
+pyplot.plot(w.direct['target_flux_evolution']['ci_ubound'][:,0], color='gray')
+pyplot.xlabel('Iteration')
+pyplot.ylabel(u'Mean Flux (1/\u03c4)')
 pyplot.show()
 </pre>
 
 [[_static/nacl_gromacs_flux_evolution_pyplot.png]]
-
-The x-axis represents the iteration number, and the y-axis represents the flux into the bound state in units of τ<sup>-1</sup>.  
-
-Alternatively, we can plot the flux into the bound state using the built-in terminal-based plotter of <code>w_ipa</code>.  
-
-<pre>
-w.current.direct.target_flux_evolution.plot()
-</pre>
-
-[[_static/nacl_gromacs_flux_evolution_terminal.png]]
 
 We can see that the flux has plateaued, indicating that the simulation has reached steady-state conditions.  When calculating the rate, we discard the portion of data during which the system is equilibrating, using only the portion over which the rates are steady and converging.  We may calculate the rate using only the last 50 iterations. To do so, exit <code>w_ipa</code> and add another line to <code>west.cfg</code>, under the <code>kinetics</code> section of <code>analysis</code>:
 
