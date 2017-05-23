@@ -266,7 +266,7 @@ The <code>w_ipa</code> tool will analyze the simulation by figuring out which bi
 | When analyzing and averaging kinetic data, skip ahead in blocks of the specified number of WE iterations.
 |-
 | <code>evolution</code>
-| Here we specify how to average kinetic data.  Here, we cumulatively average.
+| Specify how to average kinetic data.  Here, we cumulatively average.
 |}
 
 Parameters may be specified globally or for each analysis scheme individually.  In the example at hand, the options under the keyword <code>kinetics</code> are applied to every analysis scheme (though here we only have one analysis scheme).  Alternatively, the same options could be specified under each analysis scheme.
