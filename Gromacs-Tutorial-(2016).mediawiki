@@ -1,6 +1,6 @@
 = GROMACS Tutorial: Molecular Dynamics of Na<sup>+</sup>/Cl<sup>-</sup> Association =
 
-by Karl Debiec
+by Karl Debiec and Alex DeGrave
 
 Updated with WESTPA version 1.0 beta and Gromacs 2016.3
 
