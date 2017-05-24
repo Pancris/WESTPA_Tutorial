@@ -1,19 +1,22 @@
-= Introductory Tutorials =
+== Introductory Tutorials ==
 
-In-wiki tutorials 
+=== In-wiki Tutorials ===
+We provide support for the latest version of WESTPA and the latest versions of the dynamics engines in the following tutorials.
 * [[Quickstart Guide|Quickstart Guide]] 
 * [[Gromacs Tutorial (2016)|Introductory Tutorial: GROMACS (2016)]] 
-* [[Gromacs Tutorial (5.0.4)|Introductory Tutorial: GROMACS (5.0.4)]] 
 * [[Amber Tutorial|Introductory Tutorial: AMBER]] 
 * [[NAMD Tutorial|Introductory Tutorial: NAMD]] 
 * [[Chignolin Tutorial|Chignolin Tutorial]]
 
-Video tutorials 
+Old Tutorials:
+* [[Gromacs Tutorial (5.0.4)|Introductory Tutorial: GROMACS (5.0.4)]] 
+
+=== Video Tutorials ===
 * [[An introduction to WESTPA|https://www.youtube.com/watch?v=YpltPzpcmLY&amp;ab_channel=WESTPATutorials]] 
 * [[Introductory Tutorial: BioNetGen (systems biology software)|https://www.youtube.com/watch?v=rY-IJcLFiaM&amp;ab_channel=WESTPATutorials]] 
 * [[Introductory Tutorial: Analysis tools|https://www.youtube.com/watch?v=rMFvcHOOxZc&amp;ab_channel=WESTPATutorials]]
 
-= Advanced Tutorials =
+== Advanced Tutorials ==
 
 * [[Molecular Scale Systems Tutorial|Molecular Scale Systems]]
 * [[OpenMM Tutorial|OpenMM]]
