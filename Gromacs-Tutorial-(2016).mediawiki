@@ -332,7 +332,7 @@ To access data, index via the following names:
 ['ci_lbound', 'ci_ubound', 'corr_len', 'error', 'expected', 'iter_start', 'iter_stop', 'name', 'plot', 'raw', 'sterr']
 </pre>
 
-Your output should be within an order of magnitude.  Since τ for our simulation was 0.5ps, in order to determine the association rate in units of ps<sup>-1</sup>, the flux should be multiplied by 2, giving an association rate of 2.9×10<sup>-2</sup> with a 95% CI of 2.6×10<sup>-2</sup> to 3.3×10<sup>-2</sup>. In order to obtain a more precise association rate constant, we could try running more iterations of the simulation, which may be done by editing west.cfg.
+Your output should be within an order of magnitude.  Since τ for our simulation was 0.5ps, in order to determine the association rate in units of ps<sup>-1</sup>, the flux should be multiplied by 2, giving an association rate of 2.9×10<sup>-2</sup> ps<sup>-1</sup> with a 95% CI of 2.6×10<sup>-2</sup> ps<sup>-1</sup> to 3.3×10<sup>-2</sup> ps<sup>-1</sup>. In order to obtain a more precise association rate constant, we could try running more iterations of the simulation, which may be done by editing west.cfg.
 
 
 === Visualizing a selected pathway ===
