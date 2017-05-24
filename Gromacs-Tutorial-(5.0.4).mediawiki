@@ -10,7 +10,7 @@ Requirements: ~1 hr wallclock time on an 8-core Intel Westmere node (one walker 
 
 In this tutorial we will use the standard weighted ensemble approach to simulate Na<sup>+</sup>/Cl<sup>-</sup> association in Generalized Born implicit solvent. The system consists of single Na<sup>+</sup> and Cl<sup>-</sup> ions modeled with the [http://mackerell.umaryland.edu/charmm_ff.shtml CHARMM force field], using the distance between the two ions as the progress coordinate. [http://www.gromacs.org Gromacs] will be used to run the molecular dynamics, and familiarity with it is a prerequisite (see [http://www.gromacs.org/Documentation/Tutorials tutorials]). Basic knowledge of python and bash scripting is also necessary.
 
-The first step is to set up a directory containing the necessary Gromacs and WESTPA files. A working example directory can be found at <code>westpa/lib/examples/nacl_gmx</code>.
+The first step is to set up a directory containing the necessary Gromacs and WESTPA files. A working example directory can be found at <code>westpa/lib/examples/nacl_gmx_5.0.4</code>.
 
 == Preparing the Gromacs files ==
 
