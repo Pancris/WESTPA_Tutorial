@@ -393,16 +393,14 @@ class TrajWriter(object):
 </pre>
 
 Load this module into <code>w_ipa</code> by typing <code>from utils import TrajWriter</code> at the interactive prompt. Then type <code>TrajWriter(t,w)</code> to write the trajectory to a file named <code>trace.xyz</code>.
-            
-Useful links
 ------------
+== Useful links ==
 
-- Official GROMACS web page &lt;http://www.gromacs.org&gt;_
-- GROMACS tutorials from the official web page &lt;http://www.gromacs.org/documentation/tutorials&gt;_
-- Official VMD web page &lt;http://www.ks.uiuc.edu/Research/vmd&gt;_
+* [http://www.gromacs.org Official GROMACS web page]
+* [http://www.gromacs.org/documentation/tutorials GROMACS tutorials from the official web page]
+* [http://www.ks.uiuc.edu/Research/vmd Official VMD web page]
 
-Useful hints
-------------
+== Useful hints ==
 
 - Make sure your paths are set correctly in env.sh` - If the simulation doesn't stop properly with CTRL+C , use CTRL+Z. - Another method to stop the simulation relatively cleanly is to rename <code>runseg.sh</code>; WESTPA will shut the simulation down and prevent the hdf5 file from becoming corrupted. Some extra steps may be necessary to ensure that the analysis scripts can be run successfully.
 
@@ -411,4 +409,4 @@ Useful hints
 * Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular
 Dynamics Simulations of Molecular Association Kinetics: Methane/Methane,
 Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput.
-2011. &lt;http://pubs.acs.org/doi/abs/10.1021/ct100626x&gt;_
+2011. http://pubs.acs.org/doi/abs/10.1021/ct100626x
