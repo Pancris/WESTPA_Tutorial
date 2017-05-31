@@ -1,0 +1,14 @@
+== Where do I begin? ==
+
+# First of all you will need a GitHub account with a validated email
+# Make sure you are logged in to your GitHub account
+# You should now be able to edit the wiki pages
+# Please be careful with your edits! 
+
+== How do I start editing? == 
+
+There should be a white ```Edit``` button at the top of each page, as long as you are logged into your account, you should be able to start editing the page. Make the changes you want and then click ```Save Page``` at the bottom of the page in order to save. You can click on the ```Preview``` tab above in order to see how your changes will look. You can also leave an informative message before submitting changes, it would help other people figure out what you have changed and why. 
+
+== What are these symbols I am seeing in the text box? ==
+
+GitHub wiki uses various markup languages but we chose MediaWiki for our wiki pages. In order to contribute you will need to do so using MediaWiki syntax. You can either use the buttons provided above the page and appropriate syntax will appear on your cursor or you can learn more about the markup language [https://www.mediawiki.org/wiki/Help:Formatting here].
