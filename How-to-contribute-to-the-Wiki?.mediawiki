@@ -1,6 +1,6 @@
 == Where do I begin? ==
 
-# First of all you will need a GitHub account with a validated email
+# You will need a GitHub account with a validated email
 # Make sure you are logged in to your GitHub account
 # You should now be able to edit the wiki pages
 # Please be careful with your edits! 
