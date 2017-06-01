@@ -1,14 +1,15 @@
-== Where do I begin? ==
+To edit a Wiki page, you will first need to log into your GitHub account. If you do not have an account, you can sign up for one at https://github.com.
 
-# You will need a GitHub account with a validated email
-# Make sure you are logged in to your GitHub account
-# You should now be able to edit the wiki pages
-# Please be careful with your edits! 
+== Four Steps to Editing a Wiki Page == 
+# Click on the "Edit" button in the upper right hand corner above the text box and select "MediaWiki" from the pull-down menu of the "Edit mode:" above the text box.
+# Make changes in the text box. It can be helpful to write a small message in the "Edit Message" field at the bottom of the page explaining the changes.
+# Click on the "Preview" tab in the upper left hand corner above the text box to see how your newly-edited page will look before committing the changes.
+# Click on the "Save Page" button in the lower right hand corner of the page.
+Once you learn how, editing a page takes seconds! Reading wiki pages should present some chances to put those basics into practice.  Get your feet wet with these examples of easy edits:
+* If you see a typo, fix it!
+* If an instruction can be more clear, clarify it!
+* If information is outdated, you can update it if you have time, but if not, at least leave a note (like "-NEEDS UPDATING-") for your fellow wiki users!
 
-== How do I start editing? == 
-
-There should be a white ```Edit``` button at the top of each page, as long as you are logged into your account, you should be able to start editing the page. Make the changes you want and then click ```Save Page``` at the bottom of the page in order to save. You can click on the ```Preview``` tab above in order to see how your changes will look. You can also leave an informative message before submitting changes, it would help other people figure out what you have changed and why. 
-
-== What are these symbols I am seeing in the text box? ==
-
-GitHub wiki uses various markup languages but we chose MediaWiki for our wiki pages. In order to contribute you will need to do so using MediaWiki syntax. You can either use the buttons provided above the page and appropriate syntax will appear on your cursor or you can learn more about the markup language [https://www.mediawiki.org/wiki/Help:Formatting here].
+== Additional Pointers ==
+Here are some helpful hints for easy and effective contributing. Feel free to add your own!
+* To make a page look organized (or, to understand what you're seeing when you look at the Edit page), you'll need to familiarize yourself with the MediaWiki markup language. You could do so by looking at the [http://www.mediawiki.org/wiki/Help:Formatting MediaWiki Formatting Help Page]. Another way is to learn by example: when you see formatted text on a page, check the edit tab to see how it's done.
