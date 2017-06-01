@@ -8,7 +8,7 @@ We currently provide support for only the latest versions of WESTPA and the dyna
 * [[Na+/Cl- Association with GROMACS (2016)]] 
 * [[Amber Tutorial|Introductory Tutorial: AMBER]] 
 * [[NAMD Tutorial|Introductory Tutorial: NAMD]] 
-* [[Protein Folding with NAMD]]
+* [[Folding of the Chignolin Mini-protein with NAMD]]
 
 Archive of Tutorials with Older Dynamics Engines:
 * [[Gromacs Tutorial (5.0.4)|Introductory Tutorial: GROMACS (5.0.4)]] 
