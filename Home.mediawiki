@@ -10,5 +10,5 @@ This is a repository for community development of the weighted ensemble path sam
 
 [[Frequently Asked Questions (FAQ)]]
 
-[[User-Submitted Plug-ins and Scripts]]
+[[User-Submitted Plug-Ins and Scripts]]
 
