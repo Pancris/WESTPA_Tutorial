@@ -2,7 +2,7 @@
 
 == Overview ==
 
-This tutorial is intended to get you started quickly in running a WESTPA simulation. For more advanced options, please check out the tutorials that are available on our Sphinx website.
+This tutorial is intended to get you started quickly in running a WESTPA simulation.
 
 == Installing WESTPA ==
 
