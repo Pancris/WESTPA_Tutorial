@@ -1,16 +1,16 @@
-The following are user submitted scripts (bash, python, zsh, etc) that may be helpful to you.
-
 == How To Contribute ==
 
 Where appropriate, please use a git/mercurial repository, and link to the repo from this page. For individual scripts, use [https://gist.github.com/ gists], which are essentially one file git repositories that may be linked with their own unique URL. This avoids cluttering the page and allows for version control, even for individual scripts. Please include contact information, if desired, and a brief description of what the script does. For now, please simply add in scripts; as more are added, they will be organized appropriately.
 
-== Scripts ==
+== Plug-ins ==
 
 ==== [[Weighted Ensemble-Based String Method|https://stringmethodexamples.readthedocs.io/en/latest/]] ====
 
 Author: Joshua Adelman
 
 Description: See site for description &amp; download.
+
+== Scripts ==
 
 ==== [[Report CPU/Wallclock Time|https://gist.github.com/ajoshpratt/aba3ecb5d77bca9d3420]] ====
 
