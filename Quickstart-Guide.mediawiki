@@ -9,7 +9,7 @@ To install WESTPA, just follow the four steps below.
 2. Either add the Python executable to your $PATH or set the environment variable WEST_PYTHON: 
 <pre>export WEST_PYTHON=/opt/anaconda/bin/python2.7</pre>
 
-3. Install the latest WESTPA release by downloading the [[tar.gz file|https://github.com/westpa/westpa/releases]] and executing the following: 
+3. Install WESTPA by downloading the [[latest tar.gz file|https://github.com/westpa/westpa/releases]] and executing the following: 
 <pre>tar xvzf westpa-master.tar.gz
 cd westpa
 ./setup.sh </pre>
