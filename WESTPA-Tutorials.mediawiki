@@ -1,4 +1,4 @@
-To avoid common errors in setting up WESTPA simulations, we recommend that you complete the [[Checklist for Setting Up WESTPA Simulations]] while going through the tutorials below.
+We recommend that you complete the [[Checklist for Setting Up a WESTPA Simulation]] while going through the tutorials below.
  
 == Introductory Tutorials ==
 
