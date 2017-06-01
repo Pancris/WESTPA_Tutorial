@@ -1,5 +1,5 @@
 '''Files for dynamics propagation''' <br />
-☐ Have you set up all of the files for propagating the dynamics (e.g. for GROMACS, the .top, .gro, .mdp, and .ndx files)? 
+☐ Have you set up all of the files for propagating the dynamics using your dynamics engine? 
 
 '''System implementation ("system.py")''' <br />
 ☐ Is "self.pcoord_len" set to the number of data points that corresponds to the frequency with which the dynamics engine outputs the progress coordinate? Note: Many MD engines (e.g. GROMACS) output the initial point (i.e. zero). <br />
@@ -11,11 +11,11 @@
 
 '''Calculating the progress coordinate for initial states ("get_pcoord.sh")''' <br />
 ☐ Ensure that the procedure to extract the progress coordinate works by calculating your progress coordinate manually for one (or more) basis state files. <br />
-☐ Examine structure(s) of the initial states using visualization software (e.g. VMD, PyMOL, etc.) to verify that the structure(s) match the quantities of the progress coordinate in the .h5 file <br />
-☐ If your initialization ("init.sh") gives an error message indicating the "incorrect shape" of the progress coordinate, check that get_pcoord.sh is not writing to a single file. If this is the case, w_init will crash since multiple threads will be simultaneously writing to a single file. To fix this issue, you can add $$ to the file name (e.g. change "OUT=dist.xvg" to "OUT=dist_$$.xvg") in get_pcoord.sh. <br />
+☐ Examine structure(s) of the initial states using visualization software (e.g. VMD, PyMOL, etc.) to verify that the structure(s) match the progress coordinate in the .h5 file <br />
+☐ If your initialization ("init.sh") gives an error message indicating the "incorrect shape" of the progress coordinate, check that get_pcoord.sh is not writing to a single file. If this is the case, w_init will crash since multiple threads will be simultaneously writing to a single file. To fix this issue, add $$ to the file name (e.g. change "OUT=dist.xvg" to "OUT=dist_$$.xvg") in get_pcoord.sh. <br />
 
 '''Segment implementation ("runseg.sh")''' <br />
-☐ Ensure that the progress coordinate is being calculated correctly.  If necessary, manually run a single dynamics segment ("tau") for a single trajectory walker to do so (e.g. for GROMACS, run the .tpr file for a length of tau). Double check that if any analysis programs are being run that their input is correct. <br />
+☐ Ensure that the progress coordinate is being calculated correctly by manually running a single dynamics segment ("tau") for a single trajectory walker. Check that the input is correct for the analysis programs. <br />
 ☐ Are you feeding the information (e.g., coordinates, velocities, etc.) that is required for restarting the trajectories? <br />
 ☐ Check the seg_log file to ensure that the progress coordinate is being calculated as intended. <br />
 
