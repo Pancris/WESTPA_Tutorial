@@ -16,8 +16,8 @@
 
 '''Segment implementation ("runseg.sh")''' <br />
 ☐ Ensure that the progress coordinate is being calculated correctly.  If necessary, manually run a single dynamics segment ("tau") for a single trajectory walker to do so (e.g. for GROMACS, run the .tpr file for a length of tau). Double check that if any analysis programs are being run that their input is correct. <br />
-☐ Are you feeding the velocities and state information required for the thermostat and barostat from one dynamics segment to the next? In GROMACS, this information is stored in the .edr and .trr files. <br />
-☐ Check the seg_log file to ensure that the progress coordinate is being calculated as intended (e.g., GROMACS tools, such as g_dist output the distances between specified groups in this log file). <br />
+☐ Are you feeding the information (e.g., coordinates, velocities, etc.) that is required for restarting the trajectories? <br />
+☐ Check the seg_log file to ensure that the progress coordinate is being calculated as intended. <br />
 
 '''Storage''' <br />
 ☐  WESTPA simulations, depending on the stochastic engine and parameters you are using, can generate a lot of data. Make sure you have enough space before starting the simulation! <br />
