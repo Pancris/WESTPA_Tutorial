@@ -1,5 +1,3 @@
-==Setting up a WESTPA simulation==
-
 '''Files for dynamics propagation''' <br />
 ☐ Have you set up all of the files for propagating the dynamics (e.g. for GROMACS, the .top, .gro, .mdp, and .ndx files)? 
 
