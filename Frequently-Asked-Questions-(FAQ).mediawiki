@@ -16,6 +16,14 @@ A WESTPA simulation can generate tens of millions of trajectory files. To more c
 
 = Analyzing a WESTPA simulation? =
 
+== What if I get the error message "H5py Inflate() Failed error"? ==
+
+While running or analyzing a simulation, you may run into an error such as IOError: Can't write data (Inflate() failed). These errors may be related to an open bug in H5py. However, the following tips may help you to find a workaround.
+
+WESTPA may present you with such an error when unable to read or write a data set. In the case that a simulation gives this error when you attempt to run it, it may be helpful to check if a data set may be read or written to using an interactive Python session. Restarting the simulation may require deleting and remaking the data set. Also, this error may be related to compression and other storage options. Thus, it may be helpful to disable compression and chunked storage. Note that existing datasets will retain compression and other options given to them at the time of their creation, so it may be necessary to truncate an iteration (for example, using w_truncate) in order for changes to take effect.
+
+This error may also occur during repeated opening (e.g., 1000s of times) of an HDF5 data set. Thus, this error may occur while running analysis scripts. In this case, it may be helpful to cache data sets in physical memory (RAM) as numpy arrays when they are read, so that the script loads the dataset a minimal number of times.
+
 == How can I handle periodic boundary conditions with GROMACS? ==
 
 WESTPA was designed to work cleanly with any dynamics package available (using the executable propagator); however, many of the tips and tricks available on the web or the user manual for these packages make the (reasonable) assumption that you will be running a set of brute force trajectories. As such, some of their guidelines for handling periodic boundary conditions may not be applicable.
