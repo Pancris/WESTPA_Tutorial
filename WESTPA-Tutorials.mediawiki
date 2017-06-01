@@ -1,14 +1,14 @@
 == Introductory Tutorials ==
 
 === Wiki Tutorials ===
-We provide support for the latest version of WESTPA and the latest versions of the dynamics engines in the following tutorials.
+We currently provide support for only the latest version of WESTPA and the latest versions of the dynamics engines in the following tutorials.
 * [[Quickstart Guide|Quickstart Guide]] 
 * [[Gromacs Tutorial (2016)|Introductory Tutorial: GROMACS (2016)]] 
 * [[Amber Tutorial|Introductory Tutorial: AMBER]] 
 * [[NAMD Tutorial|Introductory Tutorial: NAMD]] 
 * [[Chignolin Tutorial|Chignolin Tutorial]]
 
-Old Tutorials:
+Archive of Tutorials with Older Dynamics Engines:
 * [[Gromacs Tutorial (5.0.4)|Introductory Tutorial: GROMACS (5.0.4)]] 
 
 === Video Tutorials ===
