@@ -1,4 +1,4 @@
-= From WESTPA Users =
+= Running a WESTPA Simulation =
 
 == How can I cleanly shutdown a simulation (without corrupting the h5 file)? ==
 
@@ -10,7 +10,13 @@ In general restarting a westpa simulation will restart an incomplete iteration, 
 
 In case that the iteration data got corrupted or you want to go back to an specific iteration and change something, you need to delete all the trajectory secgments and other files related to that iteration and run w_truncate on that iteration. This will delete westpa's information about the nth iteration, which includes which segments have run and which have not. Then restarting your westpa simulation will restart that iteration afresh.
 
-== How can I handle periodic boundary conditions involving the GROMACS dynamics engine? ==
+== How do you recommend storing the simulation data? ==
+
+A WESTPA simulation can generate tens of millions of trajectory files. To more conveniently store these files, we recommend tarring these files up into larger files that are <300 GB in the 'offline' mode (e.g., one tarball per iteration). '''Note:''' For files larger than 300 GB, some filesystems, such as LUSTRE, will suffer impaired performance. Be sure to consult the section in the user guide for your filesystem on how to handle large files. Some computers have special versions of tar which stripe appropriately; others do not (such as Stampede). For those that do not, it may be necessary to contact the sysadmin, and/or create a directory where you can place your tarball with a different stripe level than the default.
+
+= Analyzing a WESTPA simulation? =
+
+== How can I handle periodic boundary conditions with GROMACS? ==
 
 WESTPA was designed to work cleanly with any dynamics package available (using the executable propagator); however, many of the tips and tricks available on the web or the user manual for these packages make the (reasonable) assumption that you will be running a set of brute force trajectories. As such, some of their guidelines for handling periodic boundary conditions may not be applicable.
 
@@ -20,7 +26,7 @@ It will be necessary, within your executable propagator (usually runseg.sh) to r
 
 To fix this, simply pass in the last frame of the imaged parent trajectory and use that as the reference structure for trjconv. This will ensure that trjconv is aware if your segment has crossed the barrier at time 0 and will make the appropriate corrections.
 
-= From WESTPA Developers =
+= Developing scripts/plug-ins for WESTPA =
 
 == I'm trying to profile a parallel script using the --profile option of bin/west. I get a PicklingError. What gives? ==
 
