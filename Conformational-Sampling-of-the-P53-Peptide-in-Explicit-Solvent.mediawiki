@@ -1,5 +1,3 @@
-= Molecular Scale Systems: P53 peptide in Explicit Solvent =
-
 by Adam Pratt
 
 Contact: [mailto:Adam.J.Pratt@pitt.edu?Subject=MolecularScaleTutorial [mailto:Adam.J.Pratt@pitt.edu Adam.J.Pratt@pitt.edu]]
