@@ -1,10 +1,8 @@
-This tutorial is designed to help users convert the sample WESTPA tutorials into larger-scale simulations, both in terms of the system (degrees of freedom) and the number of walkers, number of dimensions, auxiliary coordinates, etc, by gaining an intimate understanding of the setup files.  While some familiarity with WESTPA and proficiency with GROMACS is assumed, the tutorial nevertheless aims to be as explicit as possible.
-
-= Molecular Scale Systems: P53 peptide in Explicit Solvent =
-
 by Adam Pratt
 
 Contact: [mailto:Adam.J.Pratt@pitt.edu?Subject=MolecularScaleTutorial Adam.J.Pratt@pitt.edu]
+
+This tutorial is designed to help users convert the sample WESTPA tutorials into larger-scale simulations, both in terms of the system (degrees of freedom) and the number of walkers, number of dimensions, auxiliary coordinates, etc, by gaining an intimate understanding of the setup files.  While some familiarity with WESTPA and proficiency with GROMACS is assumed, the tutorial nevertheless aims to be as explicit as possible. 
 
 The video of the presentation on this subject can be found on [https://www.youtube.com/watch?v=l1SmGx77hKo youtube].
 
