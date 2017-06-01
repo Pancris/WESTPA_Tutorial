@@ -4,8 +4,6 @@ This is a repository for community development of the weighted ensemble path sam
 
 [[How to Edit the Wiki]]
 
-[[Quickstart Guide|Quickstart Guide]] 
-
 [[WESTPA Tutorials]]
 
 [[Checklist for Setting Up a WESTPA Simulation]]
