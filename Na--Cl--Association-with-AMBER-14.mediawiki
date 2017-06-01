@@ -126,12 +126,12 @@ This script calculates the progress coordinate for each of the initial states. O
 
 === west.cfg ===
 
-; This file defines the WESTPA configuration, including:
-;* the number of dimensions of the progress coordinate
-;* the number of data points per trajectory segment
-;* the binning scheme and number of walkers per bin
-;* the number of weighted ensemble iterations to run
-;* the locations of various scripts
+This file defines the WESTPA configuration, including:
+* the number of dimensions of the progress coordinate
+* the number of data points per trajectory segment
+* the binning scheme and number of walkers per bin
+* the number of weighted ensemble iterations to run
+* the locations of various scripts
 
 For this system we use 22 bins as defined by [http://pubs.acs.org/doi/abs/10.1021/ct100626x Zwier, Kaus, and Chong], and 24 walkers per bin.
 
