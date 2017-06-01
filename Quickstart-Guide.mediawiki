@@ -24,15 +24,12 @@ WEST_PYTHON</pre>
 
 == Running a WESTPA simulation ==
 
-Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dynamics engine. To run this simulation, follow the four steps below. 
+Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dynamics engine. To run this simulation, follow the three steps below. 
 
 1. Check that you have the binary for the NAMD dynamics engine in your PATH variable
 <pre>which namd2</pre>
 
-2. Export the WEST_ROOT environment variable
-<pre>export WEST_ROOT=$(pwd)</pre>
-
-3. Head over to the example simulation directory <code>westpa/lib/examples/nacl_namd</code> and initialize the simulation
+2. Head over to the example simulation directory <code>westpa/lib/examples/nacl_namd</code> and initialize the simulation
 
 <pre>#cd lib/examples/nacl_namd
 ./init.sh
@@ -57,7 +54,7 @@ per-segment maximum non-zero probability:   0.0416667
 per-segment probability dynamic range (kT): 0
 norm = 1, error in norm = 0 (0*epsilon)</pre>
 
-4. Run the WESTPA simulation
+3. Run the WESTPA simulation
 
 <pre>./run.sh
 simulation nacl_namd root is $HOME/westpa/lib/examples/nacl_namd</pre>
