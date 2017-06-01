@@ -5,31 +5,21 @@ This tutorial is intended to get you started quickly in running a WESTPA simulat
 == Installing WESTPA ==
 
 To install WESTPA, just follow the three steps below.
+# Install the Python 2.7 version provided by the latest free [[Anaconda Python distribution|https://www.continuum.io/downloads]]. 
+# Either add the Python executable to your $PATH or set the environment variable WEST_PYTHON: <pre>export WEST_PYTHON=/opt/anaconda/bin/python2.7</pre>
+# Install the latest WESTPA release by downloading the tar.gz file from the [[releases page|https://github.com/westpa/westpa/releases]] and executing the following:
 
-# Clone the WESTPA repo.
+<pre>tar xvzf westpa-master.tar.gz
+cd westpa
+./setup.sh </pre>
 
-<pre># git clone https://github.com/westpa/westpa.git
-Cloning into 'westpa'...
-remote: Counting objects: 6377, done.
-remote: Total 6377 (delta 0), reused 0 (delta 0), pack-reused 6377
-Receiving objects: 100% (6377/6377), 8.85 MiB | 0 bytes/s, done.
-Resolving deltas: 100% (4015/4015), done.
-Checking connectivity... done.</pre>
-2) Make sure that you have the latest Anaconda python binary ([https://www.continuum.io/downloads Anaconda distribution])
+A westpa.sh script is created during installation, and will set the following environment variables:
 
-<pre>#which python
-$HOME/apps/anaconda/bin/python</pre>
-<ol start="3" style="list-style-type: decimal;">
-<li>Go to the westpa folder and run setup.sh.</li></ol>
+<pre>WEST_ROOT
+WEST_BIN
+WEST_PYTHON</pre>
+These environment variables must be set in order to run WESTPA on your computing cluster.
 
-<pre>#cd westpa
-#./setup.sh
-$HOME/westpa/lib $HOME/test_qsg/westpa
-$HOME/westpa/lib/blessings $HOME/westpa/lib $HOME/westpa
-From git://github.com/erikrose/blessings
- * branch            master     -&gt; FETCH_HEAD
-Updating d3ba51c..979988c
-...</pre>
 == Running a WESTPA simulation ==
 
 Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dynamics engine. To run this simulation, follow the steps below.
