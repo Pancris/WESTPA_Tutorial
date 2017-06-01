@@ -22,7 +22,7 @@ In case that the iteration data got corrupted or you want to go back to an speci
 
 == How do you recommend storing the simulation data? ==
 
-A WESTPA simulation can generate tens of millions of trajectory files. To more conveniently store these files, we recommend tarring these files up into larger files that are <300 GB in the 'offline' mode (e.g., one tarball per iteration). '''Note:''' For files larger than 300 GB, some filesystems, such as LUSTRE, will suffer impaired performance. Be sure to consult the section in the user guide for your filesystem on how to handle large files. Some computers have special versions of tar which stripe appropriately; others do not (such as Stampede). For those that do not, it may be necessary to contact the sysadmin, and/or create a directory where you can place your tarball with a different stripe level than the default.
+A WESTPA simulation can generate tens of millions of trajectory files. To more conveniently store these files, we recommend tarring these files up into larger files in the 'offline' mode (e.g., one tarball per iteration). Consult with your sysadmin on how to handle large files to ensure file integrity and system performance. For example, files <300 GB are recommended on the Ranch long-term archival storage system at the Texas Advanced Computing Center (TACC). 
 
 = Analyzing a WESTPA simulation? =
 
