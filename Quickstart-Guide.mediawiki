@@ -24,7 +24,7 @@ WEST_PYTHON</pre>
 Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dynamics engine. To run this simulation, follow the four steps below. 
 
 1. Check that you have the binary for the NAMD dynamics engine in your PATH variable
-<pre>#which namd2</pre>
+<pre>which namd2</pre>
 
 2. Export the WEST_ROOT environment variable
 <pre>#export WEST_ROOT=$(pwd)</pre>
@@ -32,7 +32,7 @@ Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dy
 3. Head over to the example simulation directory and initialize the simulation
 
 <pre>#cd lib/examples/nacl_namd
-#./init.sh
+./init.sh
 simulation nacl_namd root is $HOME/westpa/lib/examples/nacl_namd
 Creating HDF5 file '$HOME/westpa/lib/examples/nacl_namd/west.h5'
 2 target state(s) present
@@ -56,7 +56,7 @@ norm = 1, error in norm = 0 (0*epsilon)</pre>
 
 4. Run the WESTPA simulation
 
-<pre>#./run.sh
+<pre>./run.sh
 simulation nacl_namd root is $HOME/westpa/lib/examples/nacl_namd</pre>
 
 Voila! Your simulation results can be found in the west.h5 file. 
