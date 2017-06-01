@@ -1,5 +1,3 @@
-= OpenMM Tutorial: Molecular Dynamics of Na<sup>+</sup>/Cl<sup>-</sup> Association =
-
 by Joshua L. Adelman
 
 Updated with WESTPA version 1.0 beta and OpenMM 5.1
