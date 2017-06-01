@@ -6,6 +6,10 @@ Use the --debug option on the servers w_run and save the output to a file. (note
 Use a program like hdfview, h5ls or Python with h5py library to open the west.h5 file and ensure that the progress coordinate is being passed around correctly.
 Use hdfview, h5ls or Python with h5py library to ensure that the number of trajectory walkers is correct.
 
+== What if my simulation is failing while the progress coordinate is being calculated? ==
+
+One of the most error prone part during an iteration is the progress coordinate extraction. Programs that are not designed for quick execution have a lot of trouble during this step (VMD is a very commonly encountered one for example). Probably the best way to deal with this issue is to hard code a script to do the progress coordinate extraction. If you are doing molecular dynamics simulations multiple libraries for Python and C/C++ that deal with most output formats for MD packages exist and they usually come with a lot of convenience functions that can help you extract the progress coordinate. AMBER tools and GROMACS tools seems to work adequately for this purpose as well.
+
 == How can I cleanly shutdown a simulation (without corrupting the h5 file)? ==
 
 It is generally safe to shutdown a WESTPA simulation by simply canceling the job through your queue management. However, to ensure data integrity in the h5 file, you should wait until the WESTPA log indicates that an iteration has begun or is occurring; canceling a job too quickly after submission can result in the absolute corruption of the h5 file and should be avoided.
