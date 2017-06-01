@@ -27,7 +27,7 @@ Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dy
 <pre>which namd2</pre>
 
 2. Export the WEST_ROOT environment variable
-<pre>#export WEST_ROOT=$(pwd)</pre>
+<pre>export WEST_ROOT=$(pwd)</pre>
 
 3. Head over to the example simulation directory and initialize the simulation
 
