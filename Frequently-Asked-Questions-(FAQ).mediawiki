@@ -1,5 +1,11 @@
 = Running a WESTPA Simulation =
 
+== What if I encounter an issue while running the simulation? ==
+
+Use the --debug option on the servers w_run and save the output to a file. (note that this will generate a very detailed log of the process, try searching for "ERROR" for any errors and "iteration" to look at every iteration)
+Use a program like hdfview, h5ls or Python with h5py library to open the west.h5 file and ensure that the progress coordinate is being passed around correctly.
+Use hdfview, h5ls or Python with h5py library to ensure that the number of trajectory walkers is correct.
+
 == How can I cleanly shutdown a simulation (without corrupting the h5 file)? ==
 
 It is generally safe to shutdown a WESTPA simulation by simply canceling the job through your queue management. However, to ensure data integrity in the h5 file, you should wait until the WESTPA log indicates that an iteration has begun or is occurring; canceling a job too quickly after submission can result in the absolute corruption of the h5 file and should be avoided.
