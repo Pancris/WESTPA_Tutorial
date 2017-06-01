@@ -11,7 +11,7 @@ We currently provide support for only the latest versions of WESTPA and the dyna
 * [[Folding of the Chignolin Mini-Protein with NAMD]]
 
 Archive of Tutorials with Older Dynamics Engines:
-* [[Na+/Cl- Association with GROMACS (5.0.4)]] 
+* [[Na+/Cl- Association with GROMACS 5.0.4]] 
 
 === Video Tutorials from 2015 Hands-On WESTPA Workshop ===
 * [[Introduction to the WESTPA software package|https://www.youtube.com/watch?v=YpltPzpcmLY&amp;ab_channel=WESTPATutorials]] 
