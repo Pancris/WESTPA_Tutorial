@@ -13,7 +13,7 @@ We currently provide support for only the latest versions of WESTPA and the dyna
 Archive of Tutorials with Older Dynamics Engines:
 * [[Na+/Cl- Association with GROMACS 5.0.4]] 
 * [[Na+/Cl- Association with OpenMM 5.1]]
-* [[Conformational Sampling of the P53 Peptide with GROMACS 4.6.5]]
+* [[Conformational Sampling of the P53 Peptide in Explicit Solvent with GROMACS 4.6.5]]
 
 === Video Tutorials from 2015 WESTPA Workshop ===
 * [[Introduction to the WESTPA software package|https://www.youtube.com/watch?v=YpltPzpcmLY&amp;ab_channel=WESTPATutorials]] 
