@@ -20,7 +20,7 @@ Archive of Tutorials with Older Dynamics Engines:
 
 == Advanced Tutorials ==
 
-* [[Molecular Scale Systems Tutorial|Molecular Scale Systems]]
+* [[Conformational Sampling of the P53 Peptide with GROMACS]]
 * [[Na+/Cl- Association with OpenMM 5.1]]
 * [[Using the Plug-In for the Weighted Ensemble-Based String Method|http://stringmethodexamples.readthedocs.io/en/latest/]]
 
