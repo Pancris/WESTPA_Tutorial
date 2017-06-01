@@ -2,8 +2,8 @@ To edit a Wiki page, you will first need to log into your GitHub account. If you
 
 == Four Steps to Editing a Wiki Page == 
 # Click on the "Edit" button in the upper right hand corner above the text box and select "MediaWiki" from the pull-down menu of the "Edit mode:" above the text box.
-# Make changes in the text box. 
-# Click on the "Preview" tab in the upper left hand corner above the text box to see how your newly-edited page will look before committing the changes. Optional: Write a short message in the "Edit Message" field at the bottom of the page to explain the changes.
+# Make changes in the text box and leave a short message in the "Edit Message" field at the bottom of the page to explain the changes. 
+# Click on the "Preview" tab in the upper left hand corner above the text box to see how your newly-edited page will look before committing the changes. 
 # Click on the "Save Page" button in the lower right hand corner of the page.
 Once you learn how, editing a Wiki page takes seconds! We encourage you to get your feet wet with the following easy edits:
 * If you see a typo, fix it!
