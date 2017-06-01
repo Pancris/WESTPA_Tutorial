@@ -16,7 +16,7 @@ Results from this tutorial can be compared to those of extensive brute force sim
 
 To run a WESTPA simulation of the p53 peptide, you will need a number of files for both WESTPA and the dynamics engine (AMBER). To obtain all of these files, clone the following repository:
 
-[https://github.com/ajoshpratt/p53-tutorial p53-tutorial]
+[https://github.com/ajoshpratt/p53-amber-westpa p53-tutorial]
 
 by using the following set of commands:
 
