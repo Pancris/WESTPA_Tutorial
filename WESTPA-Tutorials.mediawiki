@@ -1,6 +1,6 @@
 == Introductory Tutorials ==
 
-To get started quickly, we recommend going through the introductory tutorial below that makes use of your desired dynamics engine. As you go through the tutorial, it is helpful to complete the [[Checklist for Setting Up a WESTPA Simulation]].
+To get started quickly, we recommend going through one of the introductory tutorials that makes use of your desired dynamics engine. As you go through the tutorial, it is helpful to complete the [[Checklist for Setting Up a WESTPA Simulation]].
 
 === Wiki Tutorials ===
 We currently provide support for only the latest versions of WESTPA and the dynamics engines in the following tutorials.
