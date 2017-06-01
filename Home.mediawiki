@@ -6,7 +6,7 @@ This is a repository for community development of the weighted ensemble path sam
 
 [[WESTPA Tutorials|WESTPA Tutorials]]
 
-[[Checklist|Checklist for running WESTPA simulations]]
+[[Checklist|Checklist for avoiding common errors]]
 
 [[Useful Tips|Useful Tips]]
 
