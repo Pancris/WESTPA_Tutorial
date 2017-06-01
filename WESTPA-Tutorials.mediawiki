@@ -1,3 +1,5 @@
+== Getting Started Quickly ==
+
 To get started quickly, we recommend going through the introductory tutorial below that makes use of your desired dynamics engine. As you go through the tutorial, it is also helpful to complete the [[Checklist for Setting Up a WESTPA Simulation]].
  
 == Introductory Tutorials ==
