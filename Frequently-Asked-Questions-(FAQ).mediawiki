@@ -4,6 +4,12 @@
 
 It is generally safe to shutdown a WESTPA simulation by simply canceling the job through your queue management. However, to ensure data integrity in the h5 file, you should wait until the WESTPA log indicates that an iteration has begun or is occurring; canceling a job too quickly after submission can result in the absolute corruption of the h5 file and should be avoided.
 
+== How can I restart a WESTPA simulation? ==
+
+In general restarting a westpa simulation will restart an incomplete iteration, retaining data from segments that have completed and re-running segments that were incomplete (or never started).
+
+In case that the iteration data got corrupted or you want to go back to an specific iteration and change something, you need to delete all the trajectory secgments and other files related to that iteration and run w_truncate on that iteration. This will delete westpa's information about the nth iteration, which includes which segments have run and which have not. Then restarting your westpa simulation will restart that iteration afresh.
+
 == How can I handle periodic boundary conditions involving the GROMACS dynamics engine? ==
 
 WESTPA was designed to work cleanly with any dynamics package available (using the executable propagator); however, many of the tips and tricks available on the web or the user manual for these packages make the (reasonable) assumption that you will be running a set of brute force trajectories. As such, some of their guidelines for handling periodic boundary conditions may not be applicable.
