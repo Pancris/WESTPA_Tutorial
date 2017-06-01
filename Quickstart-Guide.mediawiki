@@ -58,5 +58,5 @@ norm = 1, error in norm = 0 (0*epsilon)</pre>
 
 <pre>#./run.sh
 simulation nacl_namd root is $HOME/westpa/lib/examples/nacl_namd</pre>
-Voila! Your simulation results can be found in the west.h5 file. For a complete tutorial involving the simulation and analysis of Na+/Cl- association, check out the corresponding [[WESTPA Tutorials|Introductory Tutorials]].
+Voila! Your simulation results can be found in the west.h5 file. For complete tutorials involving the simulation and analysis of Na+/Cl- association, check out the [[WESTPA Tutorials|Introductory Tutorials]].
 
