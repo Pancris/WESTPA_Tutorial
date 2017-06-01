@@ -11,13 +11,13 @@
 
 '''Calculating the progress coordinate for initial states ("get_pcoord.sh")''' <br />
 ☐ Ensure that the procedure to extract the progress coordinate works by calculating your progress coordinate manually for one (or more) basis state files. <br />
-☐ Examine structure(s) using visualization software (e.g. VMD, PyMOL, etc.) to verify that the structure(s) match the calculated observables in the .h5 file <br />
-☐ Check the seg_log file to ensure that the progress coordinate is being calculated as intended (e.g., GROMACS tools, such as g_dist output the distances between specified groups in this log file). <br />
+☐ Examine structure(s) of the initial states using visualization software (e.g. VMD, PyMOL, etc.) to verify that the structure(s) match the quantities of the progress coordinate in the .h5 file <br />
 ☐ If your initialization ("init.sh") gives an error message indicating the "incorrect shape" of the progress coordinate, check that get_pcoord.sh is not writing to a single file. If this is the case, w_init will crash since multiple threads will be simultaneously writing to a single file. To fix this issue, you can add $$ to the file name (e.g. change "OUT=dist.xvg" to "OUT=dist_$$.xvg") in get_pcoord.sh. <br />
 
 '''Segment implementation ("runseg.sh")''' <br />
 ☐ Ensure that the progress coordinate is being calculated correctly.  If necessary, manually run a single dynamics segment ("tau") for a single trajectory walker to do so (e.g. for GROMACS, run the .tpr file for a length of tau). Double check that if any analysis programs are being run that their input is correct. <br />
 ☐ Are you feeding the velocities and state information required for the thermostat and barostat from one dynamics segment to the next? In GROMACS, this information is stored in the .edr and .trr files. <br />
+☐ Check the seg_log file to ensure that the progress coordinate is being calculated as intended (e.g., GROMACS tools, such as g_dist output the distances between specified groups in this log file). <br />
 
 '''Storage''' <br />
 ☐  WESTPA simulations, depending on the stochastic engine and parameters you are using, can generate a lot of data. Make sure you have enough space before starting the simulation! <br />
