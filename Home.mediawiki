@@ -4,11 +4,11 @@ This is a repository for community development of the weighted ensemble path sam
 
 [[How to edit the Wiki]]
 
-[[WESTPA Tutorials|WESTPA Tutorials]]
+[[WESTPA Tutorials]]
 
 [[Checklist for avoiding common errors]]
 
-[[Useful Tips|Useful Tips]]
+[[Useful Tips]]
 
-[[Useful Scripts|Useful Scripts]]
+[[Useful Scripts]]
 
