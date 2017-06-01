@@ -2,7 +2,7 @@ This tutorial is intended to get you started quickly in running a WESTPA simulat
 
 == Installing WESTPA ==
 
-To install WESTPA, follow the four steps below.
+To install WESTPA, just follow the four steps below.
 
 1. Install the Python 2.7 version provided by the latest free [[Anaconda Python distribution|https://www.continuum.io/downloads]]. 
 
