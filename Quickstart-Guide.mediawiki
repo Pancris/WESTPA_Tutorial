@@ -11,7 +11,7 @@ To install WESTPA, just follow the three steps below.
 cd westpa
 ./setup.sh </pre>
 
-A westpa.sh script is created during installation, and will set the following environment variables:
+The resulting westpa.sh script sets the following environment variables:
 
 <pre>WEST_ROOT
 WEST_BIN
