@@ -1,0 +1,511 @@
+This tutorial is still UNDER DEVELOPMENT.
+
+by Parmila Kafley and Adam Pratt
+
+Contact: [mailto:Adam.J.Pratt@pitt.edu?Subject=MolecularScaleTutorial Adam.J.Pratt@pitt.edu]
+
+Requirements: WESTPA 1.0 beta and Amber 15
+
+== Overview ==
+
+In this tutorial, we will be doing conformational sampling with WESTPA using Amber 15 on GPUs.  By the end, you should be able to setup, and run, a conformational sampling simulation scaling across multiple GPU nodes.
+
+Results from this tutorial can be compared to those of extensive brute force simulations reported in Xiong et al., JPC A (2011) [http://pubs.acs.org/doi/abs/10.1021/jp112235d here].
+
+== Required Files & Initial Setup ==
+
+To run a WESTPA simulation of the p53 peptide, you will need a number of files for both WESTPA and the dynamics engine (AMBER). To obtain all of these files, clone the following repository:
+
+[https://github.com/ajoshpratt/p53-tutorial p53-tutorial]
+
+by using the following set of commands:
+
+ cd ~/
+ git clone https://github.com/ajoshpratt/p53-amber-westpa
+
+ cd p53-amber-westpa
+ ./init.sh
+
+and then submit to the cluster:
+
+ qsub runwe-frank.sh
+
+== Preparing the AMBER files ==
+
+{| class="wikitable"
+! Input File     !! Description
+|-
+|P53.prmtop        || topology
+|-
+|prod.in           || configuration for all segments.
+|-
+|prod.in.annotated || configuration for all segments, annotated.
+|-
+
+|}
+
+=== prod.in.annotated ===
+<pre class='prettyprint'>
+#!/bin/bash
+#   prod.in
+#   1 ns production using Langevin thermostat and Generalized Born implicit
+#   solvation
+#   RUN AS SCRIPT TO REMOVE ANNOTATIONS PRIOR TO USE
+#   Written by Karl Debiec on 15-04-14, last updated by Karl Debiec on 15-11-05
+sed "/^sed/d;s/#.*//;/^\s*$/d;s/\s*$//" $(basename $0) > $(basename $0 .annotated); exit
+1 ns production using Langevin thermostat and GB
+################################### CONTROL ###################################
+&cntrl
+################################# INTEGRATOR ##################################
+  irest     = 0,        # Do not restart calculation from input file
+  ntx       = 1,        # Read input coordinates
+  ig        = -1,       # Use random seed from current time
+  dt        = 0.002,    # Timestep (ps)
+  nstlim    = 25000,    # Simulation duration (timesteps)
+  nscm      = 500,      # Center of mass motion removal interval (timesteps)
+  ntr       = 0,        # Do not apply position restraints
+################################## ENSEMBLE ###################################
+  ntb       = 0,        # Periodic boundary conditions disabled
+  ntp       = 0,        # Barostat disabled
+  ntt       = 3,        # Langevin thermostat
+  tempi     = 298.0,    # Initialize velocities from Maxwellian distribution
+  temp0     = 298.0,    # System temperature (K)
+  gamma_ln  = 80.0,     # Langevin collision frequency (1 / tau) (ps-1)
+############################# BONDED INTERACTIONS #############################
+  ntf       = 2,        # Exclude bonds to hydrogen from force calculation
+  ntc       = 2,        # Constrain bonds to hydrogen using SHAKE
+  tol       = 0.000001, # More stringent tolerance than the default
+ ########################### NONBONDED INTERACTIONS ############################
+  cut       = 999.0,    # Nonbonded cutoff (A)
+############################## IMPLICIT SOLVENT ###############################
+  igb       = 8,        # Generalized Born implicit solvent
+  rgbmax    = 999.0,    # Cutoff for effective Born radii calculation (A)
+  saltcon   = 0         # Physiological Concentration of Salt
+  gbsa      = 0,        # No GBSA
+################################### OUTPUT ####################################
+  ntpr      = 500,      # Energy log output interval (timesteps)
+  ntxo      = 1,        # Output restart file in ASCII text format
+  ntwr      = 25000,    # Restart file output interval (timesteps)
+  ioutfm    = 1,        # Output trajectory in NetCDF binary format
+  ntwx      = 250,      # Trajectory output interval (timesteps)
+&end
+</pre>
+
+In this tutorial, the stochastic Langevin thermostat is being used, and the τ, or iteration length, has been set to 50 ps.  In the original publication, the Nosé–Hoover thermostat was used with a Parrinello-Rahman barostat; these options are not suitable here, as WESTPA requires a stochastic element, and the simulation is being done in implicit solvent.  The τ used here has been selected mainly for efficient time usage of GPUs: fast dynamics leads to I/O becoming the bottleneck in WESTPA runs, resulting in inefficient scaling.  (insert something about the importance of tau selection).
+
+The progress coordinate length will be determined by the options chosen here; in this case, 100 timepoints are returned.
+
+== Preparing the WESTPA files ==
+
+=== init.sh ===
+<pre class='prettyprint'>
+  1 #!/bin/bash -l
+  2 source env.sh
+  3
+  4 SFX=.d$$
+  5 mv traj_segs{,$SFX}
+  6 mv seg_logs{,$SFX}
+  7 mv istates{,$SFX}
+  8 rm -Rf traj_segs$SFX seg_logs$SFX istates$SFX & disown %1
+  9 rm -f system.h5 west.h5 seg_logs.tar
+ 10 mkdir seg_logs traj_segs istates
+ 11
+ 12 BSTATE_ARGS="--bstates-from BASIS_STATES"
+ 13
+ 14 $WEST_ROOT/bin/w_init $BSTATE_ARGS --segs-per-state 1 --serial
+</pre>
+
+As this is an equilibrium simulation, no target state/bin is specified.  In addition, as there is no recycling and the simulation is started from a delta distribution, there is no reason to create more than one initial state per basis state.  We have specified to run this tool in serial mode, as it can be rude to other cluster users to use up a lot of cpu on a headnode.  The rest of the script cleans up efforts from prior runs.
+
+=== What is BASIS_STATES? ===
+
+One of the files in the bstates directory is BASIS_STATES; this contains information about the basis states (in this case, there is only one), and it will be fed in to w_init with the --bstates-from-file flag during the initialization step of WESTPA to generate initial states.  It is formatted as follows:
+
+ internal_name relative_probability reference
+
+# EDIT ME
+Where reference can be used in a manner determined entirely by the [https://chong.chem.pitt.edu/wewiki/Molecular-scale_systems#west.cfg west.cfg] file.  In the Na+/Cl- tutorial, the bstates.txt file served the same purpose, and pointed simply to nacl.gro within the same directory.  Here, the reference points to a directory within bstates, and west.cfg and get_pcoord.sh have been modified appropriately to use the file name within the directory.  Our BASIS_STATES looks like the following:
+
+ folded 1 0
+
+Indicating that within bstates, there is a reference called 0 that will be internally referred to as folded, and has a 100% chance of being selected as an istate.  A basis states file is useful for when there are multiple conformations you may wish to start from, or there is a known probability distribution inside of a particular starting ensemble.  You need only assign an appropriate probability to each reference, one on each line.  If the probabilities do not sum to 1, WESTPA will renormalize them.  For another example, see [https://gist.github.com/ajoshpratt/4ff084fa6d754013d4a3 the following] (obviously not an appropriate file for this tutorial).
+
+=== runseg.sh ===
+Depending on your local cluster setup, you may wish to use the node storage for running dynamics on, particularly as the GPUs are fast.  The following runseg.sh, which propagates dynamics, is setup to use the local node storage.  You will need to edit the appropriate $TMP variable depending on your local cluster.
+
+==== Changes to use the local scratch ====
+<pre class="prettyprint">
+1 #!/bin/bash -l
+  2
+  3 if [ -n "$SEG_DEBUG" ] ; then
+  4     set -x
+  5     #env | sort
+  6 fi
+  7
+  8
+  9 #cd $WEST_SIM_ROOT
+ 10 #source env.sh
+ 11 cd $PBS_O_WORKDIR
+ 12 mkdir -pv $WEST_CURRENT_SEG_DATA_REF || exit 1
+ 13 cd $WEST_CURRENT_SEG_DATA_REF || exit 1
+ 14
+ 15 module() { eval `/opt/sam/Modules/3.2.6/bin/modulecmd bash $*`; }
+ 16 source /etc/profile.d/sam-modules.sh
+ 17 export USE_LOCAL_SCRATCH=1
+ 18 export SCRATCHROOT=/scratch
+ 19 export SWROOT=""
+ 20 export TMP=/tmp
+ 21 module purge
+ 22 module load amber/14-intel-2015-cuda-7.5
+ 23 export CPPTRAJ=/opt/sam/rhel6/amber/amber14.T15/bin/cpptraj
+ 24 export PMEMD="$(which pmemd.cuda) -O"
+ 25 export WEST_JOBID=$PBS_JOBID
+ 26 export USER=$PBS_O_LOGNAME
+ 27 export SYSTEM=P53
+ 28 export CONFIG=$WEST_SIM_ROOT/CONFIG
+ 29 export REF=$PBS_O_WORKDIR/bstates/0/P53.MDM2
+ 30 env | sort
+ 31
+ 32
+ 33 if [[ "$USE_LOCAL_SCRATCH" == "1" ]] ; then
+ 34     # make scratch directory
+ 35     WORKDIR=$TMP/$USER/$WEST_JOBID/$WEST_CURRENT_SEG_DATA_REF
+ 36     SRCDIR=$TMP/$USER/$WEST_JOBID
+ 37     mkdir -p $WORKDIR || exit 1
+ 38
+ 39     STAGEIN="$SWROOT/bin/cp -avL "
+ 40 else
+ 41     STAGEIN="$SWROOT/bin/ln -sv "
+ 42 fi
+ 43 cd $WORKDIR || exit 1
+ 44
+ 45 function cleanup() {
+ 46     # Clean up
+ 47     if [[ "$USE_LOCAL_SCRATCH" == "1" ]] ; then
+ 48         $SWROOT/bin/cp * $WEST_SIM_ROOT/$WEST_CURRENT_SEG_DATA_REF || exit 1
+ 49     else
+ 50         # Don't care about this for the moment, as we'll always be using the local tmp space.
+ 51         $SWROOT/bin/rm -f *.itp *.mdp *.ndx *.top state.cpt
+ 52         $SWROOT/bin/rm -f none.xtc whole.xtc
+ 53     fi
+ 54 }
+ 55
+ 56 trap cleanup EXIT
+ 57
+</pre>
+
+ 1. Enter the simulation directory and set up simulation variables.  These are supposed to be inherited from env.sh, but Frank was being funny and so we had to set it up here #EDIT ME
+ 2. Create the directory that will hold the trajectory segment data.
+ 3. Change into that directory.
+
+In env.sh, we have defined whether or not to use the local scratch space on the individual compute node, and have created a variable which holds the appropriate location, if such a thing exists on this supercomputer.  
+
+ If this is set to True, 
+ 4. Create the trajectory segment directory on the scratch space on the local node.
+ 5. Change into that directory.
+
+We then define a variable called $STAGEIN (set to cp if we're using local scratch space on the node, or ln if we're not), which will be used to stage what files we need in to our working directory.  If using the local scratch space, copying in the parent trajectory data and topology information generally results in significantly less network communication than writing dynamics information, as it is calculated, over the network to the shared file system.
+
+In addition, the cleanup code is modified; if the simulation is not run on the node, we remove the files we don't want, whereas if we are working on the node, we only copy back what we want to the $WEST_SIM_ROOT location, and delete everything once we're finished.  From this point on, runseg.sh works the same, regardless of whether we are using the local scratch or not.
+
+==== Trajectory Initialization, GPU selection, and dynamics propagation  ====
+<pre classy="prettyprint">
+ 58 # Set up the run
+ 59
+ 60 case $WEST_CURRENT_SEG_INITPOINT_TYPE in
+ 61     SEG_INITPOINT_CONTINUES)
+ 62         # A continuation from a prior segment
+ 63         cd $WORKDIR || exit
+ 64         cp  $WEST_SIM_ROOT/$WEST_PARENT_DATA_REF/seg.rst ./parent.rst
+ 65         cp  $CONFIG/prod.in .
+ 66         cp  $CONFIG/$SYSTEM.prmtop .
+ 67         mv prod.in seg.in
+ 68     ;;
+ 69
+ 70     SEG_INITPOINT_NEWTRAJ)
+ 71         # Initiation of a new trajectory; $WEST_PARENT_DATA_REF contains the reference to the
+ 72         # appropriate basis state or generated initial state
+ 73         cp $WEST_PARENT_DATA_REF.rst ./parent.rst
+ 74         cp $CONFIG/prod.in .
+ 75         cp $CONFIG/$SYSTEM.prmtop .
+ 76         mv prod.in seg.in
+ 77     ;;
+ 78
+ 79     *)
+ 80         echo "unknown init point type $WEST_CURRENT_SEG_INITPOINT_TYPE"
+ 81         exit 2
+ 82     ;;
+ 83 esac
+ 84
+ 85 # Propagate segment
+ 86
+ 87 export CUDA_VISIBLE_DEVICES=$WM_PROCESS_INDEX
+ 88
+ 89 $PMEMD -p $SYSTEM.prmtop    -i   seg.in  -c parent.rst  -o seg.out           -inf seg.nfo -l seg.log -x seg.nc            -r   seg.rst || exit 1
+</pre>
+
+The main difference between a new trajectory vs. a continuation is simply the way the filesystem is set up, as they must pull files from different locations.  Otherwise, they are the same.
+
+THE MOST IMPORTANT GPU NOTE: CUDA exports a variable called $CUDA_VISIBLE_DEVICES, which is simply a list of numbers, starting from 0, which lists off the available GPUs on the node; starting from the beginning, pmemd.cuda tries each node until one works.  At this time, there is no built-in automatic job distribution.  The WESTPA work manager starts as many jobs as possible, per node, as possible, at once; if a GPU node has 4 GPUs, then 4 segments will start at once.  In this case, each runseg.sh starts with a $CUDA_VISIBLE_DEVICES equal to 0,1,2,3, and so each of the 4 segments will start on GPU 0, leaving 1, 2 and 3 unused.  To avoid this, the work manager exposes an environment variable called $WM_PROCESS_INDEX, which is an integer variable giving the internal process index of the current running segment (the first running segment has a value of 0, the second a value of 1, etc).  By setting the CUDA_VISIBLE_DEVICES equal to the WM_PROCESS_INDEX variable, we ensure that each segment is run on one GPU, and the nodes are under full load.
+
+Once that's finished, pmemd.cuda is called with the appropriate arguments.
+
+==== Progress Coordinate and Auxdata calculation and Return ====
+<pre class="prettyprint">
+ 93 COMMAND="$COMMAND trajin seg.nc\n"
+ 94 COMMAND="$COMMAND reference $REF.rst\n"
+ 95 # ... but keep in mind, not all residues exist in the reference structure.
+ 96 # The "nofit" parameter ensures this is the case.
+ 97 # This is the uh, one magic sort from the P53 paper.  Lemme look that up.  Oh!  Right, the binding RMSD.
+ 98 # Now, let's get some extra stuff, such as the 'binding' RMSD of each individual residue
+ 99 # S-Peptide Anchor residue after aligning on itself.  This is the "pre-organized anchor residue RMSD"
+100 # The lack of the nofit command should align it on itself.
+101
+102 # We also want the C-alpha RMSD.  This should be aligned on itself.
+103 COMMAND="$COMMAND rms p53-ca-rmsd :2-14@CA reference out ca-rmsd-p53.dat mass\n"
+104 # Let's get the c-alpha RMSD of SPROT, as well.  Why not?  Could be interesting.
+105 COMMAND="$COMMAND rms p53-heavy-rmsd :2-14&!@N,H,CA,HA,C,O reference out heavy-sc-rmsd-p53.dat mass\n"
+106 COMMAND="$COMMAND multidihedral dihedralP53 phi psi resrange 2-14 out dihedral_p53.dat \n"
+107 COMMAND="$COMMAND go\n"
+108 echo -e $COMMAND | $CPPTRAJ $SYSTEM.prmtop
+109
+110 # Okay!  Minimum distance and the binding RMSD.
+111 #paste <(cat min-dist.dat | tail -n +2 | awk '{print $4}') <(cat rmsd-ar.dat | tail -n +2 | awk '{print $2}') > $WEST_PCOORD_RETURN
+112
+113 cat ca-rmsd-p53.dat | tail -n +2 | awk '{print $2}' > $WEST_PCOORD_RETURN
+114
+115 cat heavy-sc-rmsd-p53.dat | tail -n +2 | awk '{print $2}' > $WEST_HEAVY_SC_RMSD_P53_RETURN
+116
+117 # Everything is named DIHEDRAL_X
+118 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $2'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $3'}) > $WEST_DIHEDRAL_2_RETURN
+119 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $4'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $5'}) > $WEST_DIHEDRAL_3_RETURN
+120 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $6'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $7'}) > $WEST_DIHEDRAL_4_RETURN
+121 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $8'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $9'}) > $WEST_DIHEDRAL_5_RETURN
+122 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $10'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $11'}) > $WEST_DIHEDRAL_6_RETURN
+123 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $12'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $13'}) > $WEST_DIHEDRAL_7_RETURN
+124 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $14'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $15'}) > $WEST_DIHEDRAL_8_RETURN
+125 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $16'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $17'}) > $WEST_DIHEDRAL_9_RETURN
+126 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $18'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $19'}) > $WEST_DIHEDRAL_10_RETURN
+127 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $20'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $21'}) > $WEST_DIHEDRAL_11_RETURN
+128 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $22'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $23'}) > $WEST_DIHEDRAL_12_RETURN
+129 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $24'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $25'}) > $WEST_DIHEDRAL_13_RETURN
+130 paste <(cat dihedral_p53.dat | tail -n +2 | awk {'print $26'}) <(cat dihedral_p53.dat | tail -n +2 | awk {'print $27'}) > $WEST_DIHEDRAL_14_RETURN
+</pre>
+
+We build a list of commands to run into cpptraj which calculate various RMSD options and dihedral angles for P53.  The commands are piped into cpptraj, and awk and the paste commands are used to format and paste the various datasets into their appropriate returns, which are set in west.cfg.
+
+=== west.cfg ===
+<pre class="prettyprint">
+1 # The master WEST configuration file for a simulation.
+  2 # vi: set filetype=yaml :
+  3 ---
+  4 west:
+  5   system:
+  6     module_path: $WEST_SIM_ROOT
+  7     # If you use a system driver (e.g. system.py) specify it here
+  8     # as filename.system_name
+  9     # Path to the file that contains the system
+ 10     ### WE Simulation options ###
+ 11     # This set of options will override any setting specified in
+ 12     # system driver (if set).
+ 13     system_options:
+ 14       # Dimensionality of your progress coordinate
+ 15       pcoord_ndim: 1
+ 16       # Number of data points per iteration
+ 17       pcoord_len: 100
+ 18       # Data type for your progress coordinate
+ 19       # (can replace float32 with float64, long, int e.g. refer to numpy documentation for more details:
+ 20       # http://docs.scipy.org/doc/numpy-1.10.1/user/basics.types.html)
+ 21       pcoord_dtype: !!python/name:numpy.float32
+ 22       # Bin settings
+ 23       bins:
+ 24         # There are a few bin mapping schemes available in WESTPA (refer to WESTPA wiki for more details:
+ 25         # https://chong.chem.pitt.edu/wewiki/UserGuide:Constructing#Binning)
+ 26         type: RectilinearBinMapper
+ 27         # The bin boundary settings. Each list is for another dimension.
+ 28         boundaries:
+ 29           - [0,0.5, 1.0, 1.5, 2.0, 2.5, 3.0,3.5,4.0,4.5,5.0,5.1,5.2,5.3,5.4,5.5,5.6,5.7,5.8,5.9,6.0,6.1,6.2,6.3,6.4,6.5,6.6,6.7,6.8,6.9,7.0,7.1,7.2,7.3,7.4,7.5,7.6,7.7,7.8,7.9,8.0,8.1,8.2,8.3,8.4,8.5,    8.6,8.7,8.8,8.9,9.0,9.1,9.2,9.3,9.4,9.5,9.6,9.7,9.8,9.9,10.0,10.5,11.0,11.5,12.0,12.5,13.0,13.5,14.0,14.5,15.0,15.5,16.0,16.5,17.0,17.5,18.0,18.5,19.0,19.5,20.0,20.5,21.0,21.5,22.0,22.5,23.0,23.50,25.    0, inf]
+ 30           # if there was a second dimension you are binning over it could look something like the following
+ 31           # - [0.0, 0.1, 0.5, 1.0, 5.0, 10.0, 50.0, inf]
+ 32       # Number walkers per bin
+ 33       bin_target_counts: 504
+ 34   drivers:
+ 35     we_drivers: default
+ 36     # There are two built in functions: 'history' and 'default'.  Default is the normal WE behavior.
+ 37     # History groups walkers according to their parent hist_length iterations ago.
+ 38     group_function: default
+ 39     #group_function: odld_system.group_walkers_test
+ 40     group_arguments:
+ 41       hist_length: 50
+ 42       states:
+ 43         # Unbound state: anything over 10 A min dist.  Also, POAR RMSD isn't important.
+ 44         0: [[10.0, 1.00, 0.0]]
+ 45         # Bound state: anything less than 3 A min dist, and 4 A binding RMSD.
+ 46         1: [[2.0, 0.1, 0.0], [2.0, 0.6, 0.0], [2.0, 1.1, 0.0], [2.0, 1.6, 0.0], [2.0, 2.1, 0.0], [2.0, 2.6, 0.0]]
+ 47   propagation:
+ 48     max_total_iterations: 100
+ 49     max_run_wallclock: 23:00:00
+ 50     propagator: executable
+ 51     gen_istates: false
+ 52   data:
+ 53     west_data_file: west.h5
+ 54     datasets: # dataset storage options
+ 55       - name: pcoord # store progress coordinates with HDF5 scale/offset
+ 56         dtype: float32
+ 57         scaleoffset: 4 # with 4 decimal places of precision
+ 58       - name: dihedral_2 # store progress coordinates with HDF5 scale/offset
+ 59         dtype: float32
+ 60         scaleoffset: 4 # with 4 decimal places of precision
+ 61       - name: dihedral_3 # store progress coordinates with HDF5 scale/offset
+ 62         dtype: float32
+ 63         scaleoffset: 4 # with 4 decimal places of precision
+ 64       - name: dihedral_4 # store progress coordinates with HDF5 scale/offset
+ 65         dtype: float32
+ 66         scaleoffset: 4 # with 4 decimal places of precision
+ 67       - name: dihedral_5 # store progress coordinates with HDF5 scale/offset
+ 68         dtype: float32
+ 69         scaleoffset: 4 # with 4 decimal places of precision
+ 70       - name: dihedral_6 # store progress coordinates with HDF5 scale/offset
+ 71         dtype: float32
+ 72         scaleoffset: 4 # with 4 decimal places of precision
+ 73       - name: dihedral_7 # store progress coordinates with HDF5 scale/offset
+ 74         dtype: float32
+ 75         scaleoffset: 4 # with 4 decimal places of precision
+ 76       - name: dihedral_8 # store progress coordinates with HDF5 scale/offset
+ 77         dtype: float32
+ 78         scaleoffset: 4 # with 4 decimal places of precision
+ 79       - name: dihedral_9 # store progress coordinates with HDF5 scale/offset
+ 80         dtype: float32
+ 81         scaleoffset: 4 # with 4 decimal places of precision
+ 82       - name: dihedral_10 # store progress coordinates with HDF5 scale/offset
+ 83         dtype: float32
+ 84         scaleoffset: 4 # with 4 decimal places of precision
+ 85       - name: dihedral_11 # store progress coordinates with HDF5 scale/offset
+ 86         dtype: float32
+ 87         scaleoffset: 4 # with 4 decimal places of precision
+ 88       - name: dihedral_12 # store progress coordinates with HDF5 scale/offset
+ 89         dtype: float32
+ 90         scaleoffset: 4 # with 4 decimal places of precision
+ 91       - name: dihedral_13 # store progress coordinates with HDF5 scale/offset
+ 92         dtype: float32
+ 93         scaleoffset: 4 # with 4 decimal places of precision
+ 94       - name: dihedral_14 # store progress coordinates with HDF5 scale/offset
+ 95         dtype: float32
+ 96         scaleoffset: 4 # with 4 decimal places of precision
+ 97       - name: heavy_sc_rmsd_p53
+ 98         dtype: float32
+ 99         scaleoffset: 4 # with 4 decimal places of precision
+100     data_refs: # how to convert segments and states to paths, etc
+101       segment:       traj_segs/{segment.n_iter:06d}/{segment.seg_id:06d}
+102       basis_state:   $WEST_SIM_ROOT/bstates/{basis_state.auxref}/P53.MDM2
+103       initial_state: istates/{initial_state.iter_created}/{initial_state.state_id}
+104   plugins:
+105     - plugin: westext.wess.WESSDriver # must name Python object
+106       enabled: false # optional, implied by presence in plugins list
+107       do_reweighting: true
+108       window_size: 0.5
+109     - plugin: westext.constantratio.TargetRatio # must name Python object
+110       enabled: true # optional, implied by presence in plugins list
+111       max_replicas: 504
+112       state_definitions: None
+113       state_weights: [1]
+114
+115   executable:
+116     environ: # environment variables for all executables
+117       PROPAGATION_DEBUG: 1
+118
+119     datasets: # input/output for datasets
+120       - name:    heavy_sc_rmsd_p53
+121         enabled: true # optional, implied
+122       - name:    dihedral_2
+123       - name:    dihedral_3
+124       - name:    dihedral_4
+125       - name:    dihedral_5
+126       - name:    dihedral_6
+127       - name:    dihedral_7
+128       - name:    dihedral_8
+129       - name:    dihedral_9
+130       - name:    dihedral_10
+131       - name:    dihedral_11
+132       - name:    dihedral_12
+133       - name:    dihedral_13
+134       - name:    dihedral_14
+135     #    #loader:  system.coord_loader # optional, numpy.loadtxt() used by default
+136     #    stdout: pcoord.{segment.seg_id:06d}.log
+137     #    stderr: stdout
+138
+139     propagator:
+140       executable: $WEST_SIM_ROOT/runseg.sh
+141       stdout:     $WEST_SIM_ROOT/seg_logs/{segment.n_iter:06d}-{segment.seg_id:06d}.log
+142       stderr:     stdout # append stderr to stdout
+143       stdin:      null # do not redirect standard input
+144       cwd:        null # do not change directory
+145       environ:    # environment variables for this executable only
+146         SEG_DEBUG: 1
+147
+148     get_pcoord:
+149       executable: $WEST_SIM_ROOT/get_pcoord.sh
+150       stdout: pcoord.log
+151       stderr: pcoord.err
+152
+153     gen_istate:
+154       executable: $WEST_SIM_ROOT/gen_istate.sh
+155       stdout: /dev/null
+156       stderr: stdout
+157
+158     post_iteration:
+159       enabled: false
+160       executable: $WEST_SIM_ROOT/post_iter.sh
+161       stdout: post_iter.log
+162       stderr: stdout
+163
+164     pre_iteration:
+165       enabled: false
+166       executable: $WEST_SIM_ROOT/pre_iter.sh
+167       stdout: pre_iter.log
+168       stderr: stdout
+169   analysis:
+170      # Settings for w_ipa, an interactive analysis program that can also automate analysis.
+171      directory: ANALYSIS                # specify the directory all analysis files should exist in.
+172      postanalysis: True                 # should the routines for w_reweight be run?
+173      kinetics:                          # general options for both kinetics routines.
+174        # Command line arguments with values should be specified as key: value (see below)
+175        # Command line arguments that are flags without values should be included as a list value
+176        # in the extra key (extra: [ 'disable-correl', 'disable-bootstrap' ])
+177        # These are global options for each scheme; individual schemes can have different values,
+178        # set in their respective section.
+179        step_iter: 10
+180        evolution: cumulative
+181        extra: [ 'disable-correl' ]
+182      analysis_schemes:                  # Analysis schemes.  Required: name (TEST), states, and bins
+183        TEST:
+184          enabled: True
+185          states:
+186            - label: unfolded
+187              coords: [[8.0]]
+188            - label: folded
+189              coords: [[1.99]]
+190          bins:
+191            - type: RectilinearBinMapper
+192              boundaries: [[0.0,3.0,6.00,100000]]
+</pre>
+
+west.cfg is responsible for the following:
+
+    Bin parameters
+    Auxiliary datasets, both return names and storage values.
+    Analysis options for use with w_ipa
+
+== Run it! ==
+
+At this point, you should be ready to run.  As indicated in the instructions above,
+
+ cd p53-tutorial
+ ./init.sh
+ qsub runwe-frank.sh
+
+And wait for everything to happen.
+
+== Analysis ==
+
+Oh, coming soon, here.
