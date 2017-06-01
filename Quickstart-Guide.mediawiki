@@ -18,7 +18,6 @@ cd westpa
 <pre>WEST_ROOT
 WEST_BIN
 WEST_PYTHON</pre>
-These environment variables must be set in order to run WESTPA on your computing cluster.
 
 == Running a WESTPA simulation ==
 
