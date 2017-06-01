@@ -4,7 +4,6 @@ We recommend that you complete the [[Checklist for Setting Up a WESTPA Simulatio
 
 === Wiki Tutorials ===
 We currently provide support for only the latest versions of WESTPA and the dynamics engines in the following tutorials.
-* [[Quickstart Guide|Quickstart Guide]] 
 * [[Na+/Cl- Association with GROMACS 2016]] 
 * [[Na+/Cl- Association with AMBER 14]] 
 * [[Na+/Cl- Association with NAMD]] 
