@@ -21,6 +21,6 @@ Archive of Tutorials with Older Dynamics Engines:
 == Advanced Tutorials ==
 
 * [[Molecular Scale Systems Tutorial|Molecular Scale Systems]]
-* [[OpenMM Tutorial|OpenMM]]
+* [[Na+/Cl- Association with OpenMM]]
 * [[Using the Plug-In for the Weighted Ensemble-Based String Method|http://stringmethodexamples.readthedocs.io/en/latest/]]
 
