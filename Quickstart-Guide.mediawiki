@@ -1,5 +1,3 @@
-== Overview ==
-
 This tutorial is intended to get you started quickly in running a WESTPA simulation.
 
 == Installing WESTPA ==
