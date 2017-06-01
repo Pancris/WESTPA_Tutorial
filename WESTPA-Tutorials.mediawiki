@@ -1,6 +1,6 @@
 == Introductory Tutorials ==
 
-=== In-wiki Tutorials ===
+=== Wiki Tutorials ===
 We provide support for the latest version of WESTPA and the latest versions of the dynamics engines in the following tutorials.
 * [[Quickstart Guide|Quickstart Guide]] 
 * [[Gromacs Tutorial (2016)|Introductory Tutorial: GROMACS (2016)]] 
