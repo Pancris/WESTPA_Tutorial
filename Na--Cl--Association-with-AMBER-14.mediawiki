@@ -127,7 +127,7 @@ This script calculates the progress coordinate for each of the initial states. O
 === west.cfg ===
 
 ; This file defines the WESTPA configuration, including:
-: ;* the number of dimensions of the progress coordinate
+;* the number of dimensions of the progress coordinate
 ;* the number of data points per trajectory segment
 ;* the binning scheme and number of walkers per bin
 ;* the number of weighted ensemble iterations to run
