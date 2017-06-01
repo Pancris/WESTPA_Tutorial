@@ -8,7 +8,7 @@ This is a repository for community development of the weighted ensemble path sam
 
 [[Checklist for avoiding common errors]]
 
-[[Useful Tips]]
+[[Frequently Asked Questions (FAQ)]]
 
 [[Useful Scripts]]
 
