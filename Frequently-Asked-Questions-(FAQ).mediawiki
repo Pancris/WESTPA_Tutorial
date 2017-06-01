@@ -1,11 +1,3 @@
-The following are user submitted tips that may be helpful to you.
-
-== How To Contribute ==
-
-For now, please simply add in tips; as more are added, they will be organized appropriately.
-
-== General Tips ==
-
 ==== How can I cleanly shutdown a simulation (without corrupting the h5 file)? ====
 
 It is generally safe to shutdown a WESTPA simulation by simply canceling the job through your queue management. However, to ensure data integrity in the h5 file, you should wait until the WESTPA log indicates that an iteration has begun or is occurring; canceling a job too quickly after submission can result in the absolute corruption of the h5 file and should be avoided.
