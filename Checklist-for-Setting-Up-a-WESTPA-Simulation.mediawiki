@@ -11,7 +11,7 @@
 
 '''Calculating the progress coordinate for initial states ("get_pcoord.sh")''' <br />
 ☐ Ensure that the procedure to extract the progress coordinate works by calculating your progress coordinate manually for one (or more) basis state files. <br />
-☐ Examine structure(s) using visualization software (e.g. VMD, PyMOL, etc.) to verify that the structure(s) match the calculated observables in the .h5 file? <br />
+☐ Examine structure(s) using visualization software (e.g. VMD, PyMOL, etc.) to verify that the structure(s) match the calculated observables in the .h5 file <br />
 ☐ Check the seg_log file to ensure that everything is being calculated as intended (e.g., GROMACS tools, such as g_dist output the distances between specified groups in this log file). <br />
 ☐ If your initialization ("init.sh") gives an error message indicating the "incorrect shape" of the progress coordinate, check that get_pcoord.sh is not writing to a single file. If this is the case, w_init will crash since multiple threads will be simultaneously writing to a single file. To fix this issue, you can add $$ to the file name (e.g. change "OUT=dist.xvg" to "OUT=dist_$$.xvg") in get_pcoord.sh. <br />
 
