@@ -10,4 +10,4 @@ This is a repository for community development of the weighted ensemble path sam
 
 [[Useful Scripts|Useful Scripts]]
 
-[[How to contribute to the Wiki?]]
+[[How to edit the Wiki]]
