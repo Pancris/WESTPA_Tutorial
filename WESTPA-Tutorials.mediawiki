@@ -21,5 +21,5 @@ Archive of Tutorials with Older Dynamics Engines:
 * [[WESTPA analysis tools|https://www.youtube.com/watch?v=rMFvcHOOxZc&amp;ab_channel=WESTPATutorials]]
 
 == Advanced Tutorials ==
-* [[Using the Plug-In for the Weighted Ensemble-Based String Method|http://stringmethodexamples.readthedocs.io/en/latest/]]
+* [[Weighted Ensemble-Based String Method|http://stringmethodexamples.readthedocs.io/en/latest/]]
 
