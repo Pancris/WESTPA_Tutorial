@@ -20,7 +20,7 @@ These environment variables must be set in order to run WESTPA on your computing
 
 == Running a WESTPA simulation ==
 
-Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dynamics engine. To run this simulation, follow the steps below.
+Now let's run a quick WESTPA simulation of Na+/Cl- association using the NAMD dynamics engine. To run this simulation, follow the four steps below. 
 
 1) Check that you have the binary for the NAMD dynamics engine in your PATH variable
 
@@ -58,5 +58,5 @@ norm = 1, error in norm = 0 (0*epsilon)</pre>
 
 <pre>#./run.sh
 simulation nacl_namd root is $HOME/westpa/lib/examples/nacl_namd</pre>
-Voila! Your simulation results can be found in the west.h5 file.
+Voila! Your simulation results can be found in the west.h5 file. For a complete tutorial involving the simulation and analysis of Na+/Cl- association, check out the corresponding introductory wiki tutorials at [[WESTPA Tutorials]].
 
