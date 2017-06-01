@@ -16,7 +16,7 @@ To fix this, simply pass in the last frame of the imaged parent trajectory and u
 
 = From WESTPA Developers =
 
-== I'm trying to profile a parallel script using the --profile option of bin/west. I get a PicklingError. What gives? ====
+== I'm trying to profile a parallel script using the --profile option of bin/west. I get a PicklingError. What gives? ==
 
 When executing a script using --profile, the following error may crop up:
 
