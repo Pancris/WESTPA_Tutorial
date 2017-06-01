@@ -5,13 +5,12 @@
 <ul>
 <li>Files for dynamics propagation
 <ul>
-<li>Have you set up all of the files for propagating the dynamics (e.g. for GROMACS, the .top, .gro, .mdp, and .ndx files)?</li></ul>
-</li>
-<li>System implementation (<code>system.py</code>)
+<span style="font-size:21px">☐</span> Have you set up all of the files for propagating the dynamics (e.g. for GROMACS, the .top, .gro, .mdp, and .ndx files)?</ul>
+<li> System implementation (<code>system.py</code>)
 <ul>
-<li>Is <code>self.pcoord_len</code> set to the number of data points that corresponds to the frequency with which the dynamics engine outputs the progress coordinate? Note: Many MD engines (e.g. GROMACS) output the initial point (i.e. zero).</li>
-<li>Are the bins in the expected positions? You can easily view the positions of the bins using a Python interpreter.</li></ul>
-</li>
+<span style="font-size:21px">☐</span> Is <code>self.pcoord_len</code> set to the number of data points that corresponds to the frequency with which the dynamics engine outputs the progress coordinate? Note: Many MD engines (e.g. GROMACS) output the initial point (i.e. zero).</ul>
+<ul>
+<span style="font-size:21px">☐</span> Are the bins in the expected positions? You can easily view the positions of the bins using a Python interpreter.</ul>
 <li>Initializing the simulation (<code>init.sh</code>)
 <ul>
 <li>Is the directory structure for the trajectory output files consistent with specifications in the master configuration file (<code>west.cfg</code>)?</li>
