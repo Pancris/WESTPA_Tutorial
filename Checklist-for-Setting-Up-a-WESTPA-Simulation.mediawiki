@@ -42,3 +42,6 @@ shows that the array is populated by zeros and the first point is the value calc
         (5,8,0) 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0,
         (8,2,0) 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 <br />
+
+'''Analysis''' <br />
+☐  If you are running the analysis on shared computing resources, be sure to use the --serial flag with the analysis tool. Otherwise, many of the included tools default to parallel mode (e.g., w_assign), which will create as many Python threads as there are CPU cores available. <br />
