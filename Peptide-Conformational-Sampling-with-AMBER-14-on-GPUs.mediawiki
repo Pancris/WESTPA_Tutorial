@@ -2,7 +2,7 @@ This tutorial is still UNDER DEVELOPMENT.
 
 by Parmila Kafley and Adam Pratt
 
-Contact: [mailto:Adam.J.Pratt@pitt.edu?Subject=MolecularScaleTutorial Adam.J.Pratt@pitt.edu]
+Contact: [mailto:Adam.J.Pratt@pitt.edu Adam.J.Pratt@pitt.edu]
 
 Requirements: WESTPA 1.0 beta and Amber 15
 
