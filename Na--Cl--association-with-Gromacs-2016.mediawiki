@@ -273,7 +273,7 @@ Parameters may be specified globally or for each analysis scheme individually.  
 
 To run the analysis, simply run <code>w_ipa</code> from the simulation directory.  <code>w_ipa</code> will automatically perform analyses that need to be performed or load up the analysis files if they have already been completed.  After running the analyses, <code>w_ipa</code> will drop you to an <code>ipython</code>-like interactive python interpreter.  From here, you have access to WESTPA datasets and a variety of analysis routines through the <code>w</code> object.
 
-We can plot the cumulatively averaged flux into the bound state using the build-in terminal-based plotter of <code>w_ipa</code>.  First, we will check what state index should be passed to the plotting function.  To check the state labels and their corresponding indices, type the following command:
+We can plot the cumulatively averaged flux into the bound state using the built-in terminal-based plotter of <code>w_ipa</code>.  First, we will check what state index should be passed to the plotting function.  To check the state labels and their corresponding indices, type the following command:
 
 <pre>
 In [1]: w.state_labels
