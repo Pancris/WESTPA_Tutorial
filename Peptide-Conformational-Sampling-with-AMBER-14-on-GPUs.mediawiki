@@ -4,7 +4,7 @@ by Parmila Kafley, Adam Pratt, and Elissa Fink
 
 Contact: [mailto:Adam.J.Pratt@pitt.edu Adam.J.Pratt@pitt.edu]
 
-Requirements: WESTPA 1.0 beta and Amber 15
+Requirements: WESTPA 1.0 beta and Amber 16
 
 == Overview ==
 
@@ -29,7 +29,6 @@ by using the following set of commands:
 and then submit to the cluster:
 
  qsub runwe-frank.sh
- sbatch runwe_h2p.sh
 
 == Preparing the AMBER files ==
 
