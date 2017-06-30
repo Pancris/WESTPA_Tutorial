@@ -582,7 +582,7 @@ Calculates the probabilities for all distributions and stores in pdist.h5 file.
 This plot tracks the sampling of the progress coordinate over all WE iterations.
 
  plothist average pdist.h5 -o hist.pdf
-This plot shows the distribution of conformations in terms of free energy and the progress coordinate. This plot can be compared to the convergence of p53 sampling observed around 8A, shown in [http://pubs.acs.org/doi/abs/10.1021/acs.jpclett.6b01502 Zwier, Pratt, Adelman, et al.] (Figure S7).
+This plot shows the distribution of conformations in terms of free energy and the progress coordinate. This plot can be compared to the convergence of p53 sampling observed around 8Å, shown in [http://pubs.acs.org/doi/abs/10.1021/acs.jpclett.6b01502 Zwier, Pratt, Adelman, et al.] (Figure S7).
 
  plothist --help
 Plothist help menu for analysis options
