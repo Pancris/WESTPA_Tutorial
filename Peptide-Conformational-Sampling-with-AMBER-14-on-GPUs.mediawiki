@@ -590,7 +590,7 @@ Plothist help menu for analysis options
 ./dihedrals.sh
 This generates a dihedral_all.h5 file, dihedral_all.pdf (Ramachandran plot), and a dihedral_all_psi.pdf. The Ramachandran plot and distribution of backbone psi angles can be compared to those of Xiong, Zwier, Myshakina, et al. ([http://pubs.acs.org/doi/abs/10.1021/jp112235d here], see Figures 3 and 4).
 
-===Conformational Sampling Analysis===
+===Visualizing p53 Conformations===
 
 The segment directories in the final iteration of traj_segs (directory for iteration 100) will hold the .rst files and the .prmtop files. All iteration directories have these files, but the final iteration is used because the most converged probability distribution is wanted. Convergence of the system to a progress coordinate metric can be observed in the average distribution plot. These p53 conformations will be used as starting, unbound structures in the p53-MDM2 binding simulation (tutorial in the works).
 
