@@ -21,7 +21,7 @@ Archive of Tutorials with Older Dynamics Engines:
 == Advanced Tutorials ==
 The tutorials below are designed for users who have already completed at least one of the introductory tutorials above.
 
-* [[Peptide Conformational Sampling with AMBER 14 on GPUs]]
+* [[Peptide Conformational Sampling with AMBER 16 on GPUs]]
 * [[Weighted Ensemble-Based String Method|http://stringmethodexamples.readthedocs.io/en/latest/]]
 
 Archive of Tutorials with Older Dynamics Engines:
