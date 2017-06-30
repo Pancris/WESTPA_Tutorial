@@ -575,24 +575,24 @@ west.cfg shows the simulation will run for 100 iterations (max_total_iterations:
 
 WE equilibrium sampling of structures performs substantially better than 10us of brute force simulation, observed in Zwier, Pratt, Adelman, et al. [http://pubs.acs.org/doi/abs/10.1021/acs.jpclett.6b01502 here] with unbound p53 and MDM2 (see Figure S7). Their work demonstrated WE was able to find the lowest free-energy state of p53.
 
-w_pdist
+ w_pdist
 Calculates the probabilities for all distributions and stores in pdist.h5 file.
 
-plothist evolution pdist.h5
+ plothist evolution pdist.h5
 This plot tracks the sampling of the progress coordinate over all WE iterations.
 
-plothist average pdist.h5 -o hist.pdf
+ plothist average pdist.h5 -o hist.pdf
 This plot shows the distribution of conformations in terms of free energy and the progress coordinate. This plot can be compared to the convergence of p53 sampling observed around 8A, shown in Zwier, Pratt, Adelman, et al. ([http://pubs.acs.org/doi/abs/10.1021/acs.jpclett.6b01502 here], see Figure S7).
 
-plothist --help
+ plothist --help
 Plothist help menu for analysis options
 
-./dihedrals.sh
+ ./dihedrals.sh
 This generates a dihedral_all.h5 file, dihedral_all.pdf (Ramachandran plot), and a dihedral_all_psi.pdf. The Ramachandran plot and distribution of backbone psi angles can be compared to those of Xiong, Zwier, Myshakina, et al. ([http://pubs.acs.org/doi/abs/10.1021/jp112235d here], see Figures 3 and 4).
 
 ===Visualizing p53 Conformations===
 
 The segment directories in the final iteration of traj_segs (directory for iteration 100) will hold the .rst files and the .prmtop files. All iteration directories have these files, but the final iteration is used because the most converged probability distribution is wanted. Convergence of the system to a progress coordinate metric can be observed in the average distribution plot. These p53 conformations will be used as starting, unbound structures in the p53-MDM2 binding simulation (tutorial in the works).
 
-ambpdb -p P53.prmtop -c seg_0.rst > p53_seg_0.pdb
+ ambpdb -p P53.prmtop -c seg_0.rst > p53_seg_0.pdb
 This AMBER command will convert the segment rst files to pdb files. These are viewable using VMD <http://www.ks.uiuc.edu/Research/vmd>_.
