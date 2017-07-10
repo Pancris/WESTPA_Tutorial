@@ -4,13 +4,13 @@ We strongly recommend careful study of the WE Overview and especially the sectio
 
 Currently, choosing WE parameters is something of an art, although the hope is to automate some aspects of parameter selection in the future.  For now, we suggest what may be considered a semi-systematic trial-and-error procedure.
 
-Guidelines:
-Choose the simplest 1D coordinate, bin size, τ, and number of trajectories/bin based on your intuition.  Note that all of these WE parameters are correlated. See also Table 1 with examples from the literature. 
-To identify a suitable τ value, it can be helpful to perform a WESTPA scaling test [will provide a link for directions here]. The τ value should be sufficiently long such that (i) at least one trajectory progresses to the next bin, (ii) the dynamics are the main bottleneck with little overhead (e.g., from starting up the dynamics engine), and (iii) the results are not skewed towards the fastest transitions. 
-If your system gets stuck (stops making progress), consider reducing the τ value, using a finer bin spacing and/or increase the number of trajectories/bin.
-If none of the above work, your progress coordinate may be missing orthogonal, slow degrees of freedom that are relevant to the process you are aiming to sample. To address this issue, try to develop a 2D progress coordinate.  Note that additional dimensions in the progress coordinate create a corresponding increase in the number of bins - and hence cost of the WE run.  Therefore, considering using nested coordinates.
-Bear in mind binning strategies that are not based on user-defined coordinates, but instead employ Voronoi cells potentially in conjunction with a “string” or WExplore strategy.  The WESTPA community will continue researching the important topic of self-adjusting adaptive bins.
-If all of your best efforts with WE fail to generate transitions, re-consider the physical restraints that may be present in your system.  There may be something about the system preventing the transition, at least on the timescales accessible to WE simulation.  Re-read the WE Overview.
+==Guidelines:==
+# Choose the simplest 1D coordinate, bin size, τ, and number of trajectories/bin based on your intuition.  Note that all of these WE parameters are correlated. See also Table 1 with examples from the literature. 
+# To identify a suitable τ value, it can be helpful to perform a WESTPA scaling test [will provide a link for directions here]. The τ value should be sufficiently long such that (i) at least one trajectory progresses to the next bin, (ii) the dynamics are the main bottleneck with little overhead (e.g., from starting up the dynamics engine), and (iii) the results are not [https://westpa.github.io/westpa/overview.html: skewed towards the fastest transitions.] 
+# If your system gets stuck (stops making progress), consider reducing the τ value, using a finer bin spacing and/or increase the number of trajectories/bin.
+# If none of the above work, your progress coordinate may be missing orthogonal, slow degrees of freedom that are relevant to the process you are aiming to sample. To address this issue, try to develop a 2D progress coordinate.  Note that additional dimensions in the progress coordinate create a corresponding increase in the number of bins - and hence cost of the WE run.  Therefore, considering using nested coordinates.
+# Bear in mind binning strategies that are not based on user-defined coordinates, but instead employ Voronoi cells potentially in conjunction with a “string” or WExplore strategy.  The WESTPA community will continue researching the important topic of self-adjusting adaptive bins.
+# If all of your best efforts with WE fail to generate transitions, re-consider the physical restraints that may be present in your system.  There may be something about the system preventing the transition, at least on the timescales accessible to WE simulation.  Re-read the [https://westpa.github.io/westpa/overview.html: WE Overview.]
 
 Table 1: Examples of WE parameters 
 
