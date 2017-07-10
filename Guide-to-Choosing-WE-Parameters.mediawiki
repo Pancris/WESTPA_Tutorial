@@ -12,7 +12,55 @@ Currently, choosing WE parameters is something of an art, although the hope is t
 # Bear in mind binning strategies that are not based on user-defined coordinates, but instead employ Voronoi cells potentially in conjunction with a “string” or WExplore strategy.  The WESTPA community will continue researching the important topic of self-adjusting adaptive bins.
 # If all of your best efforts with WE fail to generate transitions, re-consider the physical restraints that may be present in your system.  There may be something about the system preventing the transition, at least on the timescales accessible to WE simulation.  Re-read the [https://westpa.github.io/westpa/overview.html: WE Overview.]
 
-Table 1: Examples of WE parameters 
+{| class="wikitable"
+|+Table 1: Examples of WE parameters
+|-
+|System name
+|System size
+|Force Field
+|Solvent
+|Transition type
+|WE Parameters 
+|Reference
+|-
+|P53 peptide and MDM2 protein
+|?? atoms
+|AMBER ff99SB-ILDN
+|GB/SA implicit solvent model
+|Protein-peptide association
+|2D progress coordinate: heavy-atom RMSD of p53 peptide relative to its MDM2-bound conformation following alignment on (i) MDM2 and (ii) itself.
+Binning: ??
+Sampling: = 50 ps; 396 iterations
+|Zwier et al.,
+J. Phys. Chem. Lett. 7: 3440 (2016)
+|-
+|Estrogen Receptor
+|>50,000 atoms
+|AMBER ff14SB
+|TIP3P
+|Helix motion
+|Progress coordinate:  angular change of vector along helix Binning:  60 bins of equal width
+Sampling:  tau = 5 ps
+|
+|-
+|Neuro-muscular junction (spatially resolved)
+|One active zone: 26 synaptic vesicles + 52 Ca2+ channels + 10^6 buffer sites
+|MCell model; see reference
+|N.A.
+|Vesicle release
+|2D Bins: number of Ca2+ bound to a vesicle number of activated receptors per vesicle (unit width each dimension). =6 s; 500 iterations; 100 WE runs
+|Donovan et al., PLoS Comput Biol 12(2):
+E1004611 (2016)
+|-
+|FcRI signaling network (well-mixed)
+|354 species; 3,680 reactions
+|Mass-action kinetics implemented in BioNetGen
+|N.A.
+|N.A. [Exploration of model outcomes]
+|60 bins of unit width in the counts of a marker species; =0.6s; 100 iterations; multiple WE runs
+|Donovan et al., J. Chem. Phys. 139, 115105 (2013). 
+|}
+
 
 
 
