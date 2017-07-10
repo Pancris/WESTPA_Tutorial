@@ -1,6 +1,6 @@
 Suitable weighted ensemble (WE) parameters such as the progress coordinate, binning scheme, and resampling interval (τ) depend on the particular system under investigation and the particular process of interest.  Below are general recommendations that aim to assist in choosing these parameters.
 
-We strongly recommend careful study of the WE Overview and especially the section on limitations as you plan your WESTPA computation.  Understanding the basic theory and limitations up can save you a lot of time and headaches.  Every method has its limitations and some systems may be too challenging for WE or other approaches.  Another discussion of path-sampling limitations generally can be found here.
+We strongly recommend careful study of the [https://westpa.github.io/westpa/overview.html: WE Overview] and especially the section on limitations as you plan your WESTPA computation.  Understanding the basic theory and limitations up can save you a lot of time and headaches.  Every method has its limitations and some systems may be too challenging for WE or other approaches.  Another discussion of path-sampling limitations generally can be found [http://statisticalbiophysicsblog.org/?p=115: here].
 
 Currently, choosing WE parameters is something of an art, although the hope is to automate some aspects of parameter selection in the future.  For now, we suggest what may be considered a semi-systematic trial-and-error procedure.
 
