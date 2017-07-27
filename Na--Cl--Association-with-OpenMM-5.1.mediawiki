@@ -163,7 +163,7 @@ The script should create a directory called <code>istates</code>, as well as an 
 
 Now that your simulation has been initialized, it is ready to be run by the weighted ensemble code. Use the command:
 
-<pre>./run.sh --work-manager=zmq --n-workers=4 &amp;</pre>
+<pre>./run.sh --work-manager=zmq --n-workers=4 &;</pre>
 to use the <code>zmq</code> work manager and run using 4 workers.
 
 The <code>init.sh</code> and <code>run.sh</code> scripts call <code>w_init.py</code> and <code>w_run.py</code> from the main weighted ensemble code, respectively. If either does not work, check to see if the <code>env.sh</code> is set up properly and if it points to the right directory for your weighted ensemble code (the default settings assume you are running from within the westpa/lib/nacl_openmm directory). Make sure that the <code>WEST_ROOT</code> variable is set to where the <code>westpa</code> directory exists and the <code>WEST_SIM_ROOT</code> variable is set to where your simulation directory exists.
