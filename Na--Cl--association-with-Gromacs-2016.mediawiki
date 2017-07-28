@@ -402,7 +402,9 @@ Load this module into <code>w_ipa</code> by typing <code>from utils import TrajW
 
 == Useful hints ==
 
-- Make sure your paths are set correctly in env.sh` - If the simulation doesn't stop properly with CTRL+C , use CTRL+Z. - Another method to stop the simulation relatively cleanly is to rename <code>runseg.sh</code>; WESTPA will shut the simulation down and prevent the hdf5 file from becoming corrupted. Some extra steps may be necessary to ensure that the analysis scripts can be run successfully.
+* Make sure your paths are set correctly in env.sh`
+* If the simulation doesn't stop properly with CTRL+C , use CTRL+Z. 
+* Another method to stop the simulation relatively cleanly is to rename <code>runseg.sh</code>; WESTPA will shut the simulation down and prevent the hdf5 file from becoming corrupted. Some extra steps may be necessary to ensure that the analysis scripts can be run successfully.
 
 == References ==
 
