@@ -229,6 +229,8 @@ Compared to the first plot of the instantaneous flux, the time evolution plot is
 In order to visualize a binding event, you will need to stitch together the individual trajectory segments that start at the initial state and then reach the bound state. The introductory Amber tutorial &lt;amber_tutorial&gt; provides directions on how to extract the sequence of segments in a set of successful binding events, however the script to construct a visualization of the pathway will not work for this example since we have stored all of the relevant data directly in the <code>west.h5</code> file. For this example, we leave writing the necessary script as an exercise. To create a netcdf-formatted Amber trajectory file, you might want to take a look at [https://bitbucket.org/joshua.adelman/stringmethodexamples/raw/tip/shared/elasticnetwork-langevin/netcdf4storage.py netcdf4storage.py] or you might consider using the dcd writer built into OpenMM which can imported into python using:
 
 <pre>import simtk.openmm.app.dcdfile</pre>
+
+------------
 == Useful links ==
 
 * [http://openmm.org Official OpenMM web page]
@@ -236,14 +238,10 @@ In order to visualize a binding event, you will need to stitch together the indi
 
 == Useful hints ==
 
-* Make sure your paths are set correctly in <code>env.sh</code>
-* If the simulation doesn't stop properly with CTRL+C , use CTRL+Z.
+* Make sure your paths are set correctly in env.sh
+* If the simulation doesn't stop properly with CTRL+C , use CTRL+Z. 
 * Another method to stop the simulation relatively cleanly is to rename <code>runseg.sh</code>; WESTPA will shut the simulation down and prevent the hdf5 file from becoming corrupted. Some extra steps may be necessary to ensure that the analysis scripts can be run successfully.
 
 == References ==
 
-* Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular
-Dynamics Simulations of Molecular Association Kinetics: Methane/Methane,
-Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput.
-2011. &lt;http://pubs.acs.org/doi/abs/10.1021/ct100626x&gt;_
-
+* Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular Dynamics Simulations of Molecular Association Kinetics: Methane/Methane, Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput. 2011. http://pubs.acs.org/doi/abs/10.1021/ct100626x

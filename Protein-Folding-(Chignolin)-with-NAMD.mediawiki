@@ -164,15 +164,15 @@ import numpy as np
 import h5py
 
 if(len(sys.argv)&lt;2):
-      print &quot;Usage:&quot;
-      print &quot;getMinMax.py &lt;argv1&gt;&quot;
-      print &quot;&lt;argv1&gt;: Num of Iterations&quot;
+      print "Usage:"
+      print "getMinMax.py &lt;argv1&gt;"
+      print "&lt;argv1&gt;: Num of Iterations"
       sys.exit(-1)
 
 totNumIter=int(sys.argv[1])
 
 try:
-    datafile=h5py.File(&quot;west.h5&quot;,&quot;r&quot;)
+    datafile=h5py.File("west.h5","r")
 except IOError as err:
     print err.errno
     print err.strerror
@@ -180,8 +180,8 @@ except IOError as err:
 
 counter = 0
 for I in xrange(1,totNumIter+1):
-      itr = &quot;iter_&quot;+str(I).rjust(8,'0')
-      coords = np.array(datafile[&quot;iterations&quot;][itr][&quot;pcoord&quot;])
+      itr = "iter_"+str(I).rjust(8,'0')
+      coords = np.array(datafile["iterations"][itr]["pcoord"])
       numOfsegments = len(coords)
       counter += numOfsegments      #Stores the total sim time in Tau units
       firstcoord = coords[:,1,0]
@@ -214,10 +214,10 @@ first_binding        = 300 - fluxanl['target_flux']['target_0']['flux'].shape[0]
 flux[first_binding:] = numpy.array(fluxanl['target_flux']['target_0']['flux'])
 pylab.xlim([289,300])
 pylab.plot(flux)
-pylab.xlabel(&quot;Iteration&quot;)
-pylab.ylabel(&quot;Instantaneous Flux $(\\frac{1}{\\tau})$&quot;)
+pylab.xlabel("Iteration")
+pylab.ylabel("Instantaneous Flux $(\frac{1}{\tau})$")
 pylab.show()</pre>
-[[File:_static/chig_flux1.png|frame|none]]
+[[_static/chig_flux1.png]]
 
 The x-axis represents the iteration number, and the y-axis the flux into the bound state in units of τ<sup>-1</sup>. For my simulation, the first binding event occurred in iteration 289. The instantaneous flux is noisy and can be difficult to interpret, so let's plot the time evolution of flux as well. Run '''w_fluxanl''' again, this time with the '--evol' flag.
 
@@ -235,10 +235,10 @@ ci_lb[first_binding:]     = numpy.array(fluxanl['target_flux']['target_0']['flux
 ci_ub[first_binding:]     = numpy.array(fluxanl['target_flux']['target_0']['flux_evolution']['ci_ub'])
 pylab.plot(mean_flux, 'b', ci_lb, 'g', ci_ub, 'r')
 pylab.xlim([289,300])
-pylab.xlabel(&quot;Iteration&quot;)
-pylab.ylabel(&quot;Mean Flux $(\\frac{1}{\\tau})$&quot;)
+pylab.xlabel("Iteration")
+pylab.ylabel("Mean Flux $(\frac{1}{\tau})$")
 pylab.show()</pre>
-[[File:_static/chig_flux2.png|frame|none]]
+[[_static/chig_flux2.png]]
 
 Since our simulation is relatively short, we do not expect to observe a constant flux and the end of the simulation. The mean flux obtained from the output of '''w_fluxanl''' for our simulation was 5.03 x 10<sup>-3</sup> in units of τ<sup>-1</sup>. Since τ for our simulation was 1ps, the folding rate is 5.03 x 10<sup>-3</sup> ps<sup>-1</sup> with a 95% CI of 4.2 x10<sup>-4</sup> to 1.18 x10<sup>-2</sup>. In order to obtain a more precise association rate and a relatively constant flux, the user would need to run more iterations of the simulation, which may easily be done by changing ''west.cfg''.
 

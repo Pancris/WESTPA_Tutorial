@@ -225,8 +225,8 @@ flux                 = numpy.zeros(100)
 first_binding        = 100 - fluxanl['target_flux']['target_1']['flux'].shape[0]
 flux[first_binding:] = numpy.array(fluxanl['target_flux']['target_1']['flux'])
 pylab.plot(flux)
-pylab.xlabel(&quot;Iteration&quot;)
-pylab.ylabel(&quot;Instantaneous Flux $(\\frac{1}{\\tau})$&quot;)
+pylab.xlabel("Iteration")
+pylab.ylabel("Instantaneous Flux $(\frac{1}{\tau})$")
 pylab.show()</pre>
 [[_static/nacl_gromacs_flux_instantaneous.png]]
 
@@ -245,8 +245,8 @@ mean_flux[first_binding:] = numpy.array(fluxanl['target_flux']['target_1']['flux
 ci_lb[first_binding:]     = numpy.array(fluxanl['target_flux']['target_1']['flux_evolution']['ci_lbound'])
 ci_ub[first_binding:]     = numpy.array(fluxanl['target_flux']['target_1']['flux_evolution']['ci_ubound'])
 pylab.plot(mean_flux, 'b', ci_lb, 'g', ci_ub, 'r')
-pylab.xlabel(&quot;Iteration&quot;)
-pylab.ylabel(&quot;Mean Flux $(\\frac{1}{\\tau})$&quot;)
+pylab.xlabel("Iteration")
+pylab.ylabel("Mean Flux $(\frac{1}{\tau})$")
 pylab.show()</pre>
 
 [[_static/nacl_gromacs_flux_evolution.png]]
@@ -286,36 +286,32 @@ infile = numpy.loadtxt(sys.argv[1], usecols = (0, 1))
 west   = h5py.File('west.h5')
 coords = []
 for iteration, seg_id in infile[1:]:
-    iter_key = &quot;iter_{0:08d}&quot;.format(int(iteration))
+    iter_key = "iter_{0:08d}".format(int(iteration))
     SOD      = west['iterations'][iter_key]['auxdata']['coord'][seg_id,1:,0,:]
     CLA      = west['iterations'][iter_key]['auxdata']['coord'][seg_id,1:,1,:]
     coords  += [numpy.column_stack((SOD, CLA))]
-with open(sys.argv[1][:-4] + &quot;.xyz&quot;, 'w') as outfile:
+with open(sys.argv[1][:-4] + ".xyz", 'w') as outfile:
     for i, frame in enumerate(numpy.concatenate(coords)):
-        outfile.write(&quot;2\n&quot;)
-        outfile.write(&quot;{0}\n&quot;.format(i))
-        outfile.write(&quot;SOD {0:9.5f} {1:9.5f} {2:9.5f}\n&quot;.format(
+        outfile.write("2\n")
+        outfile.write("{0}\n".format(i))
+        outfile.write("SOD {0:9.5f} {1:9.5f} {2:9.5f}\n".format(
           float(frame[0]), float(frame[1]), float(frame[2])))
-        outfile.write(&quot;CLA {0:9.5f} {1:9.5f} {2:9.5f}\n&quot;.format(
+        outfile.write("CLA {0:9.5f} {1:9.5f} {2:9.5f}\n".format(
           float(frame[3]), float(frame[4]), float(frame[5])))</pre>
-This script takes <code>w_trace</code> output as a command line argument, loads the iteration and segment IDs, loads the coordinates for each segment from west.h5, and saves the results into an xyz file viewable using VMD &lt;http://www.ks.uiuc.edu/Research/vmd&gt;_.
-
-Useful links
+This script takes <code>w_trace</code> output as a command line argument, loads the iteration and segment IDs, loads the coordinates for each segment from west.h5, and saves the results into an xyz file viewable using [http://www.ks.uiuc.edu/Research/vmd VMD].
 ------------
+== Useful links ==
 
-- Official GROMACS web page &lt;http://www.gromacs.org&gt;_
-- GROMACS tutorials from the official web page &lt;http://www.gromacs.org/documentation/tutorials&gt;_
-- Official VMD web page &lt;http://www.ks.uiuc.edu/Research/vmd&gt;_
+* [http://www.gromacs.org Official GROMACS web page]
+* [http://www.gromacs.org/documentation/tutorials GROMACS tutorials from the official web page]
+* [http://www.ks.uiuc.edu/Research/vmd Official VMD web page]
 
-Useful hints
-------------
+== Useful hints ==
 
-- Make sure your paths are set correctly in env.sh` - If the simulation doesn't stop properly with CTRL+C , use CTRL+Z. - Another method to stop the simulation relatively cleanly is to rename <code>runseg.sh</code>; WESTPA will shut the simulation down and prevent the hdf5 file from becoming corrupted. Some extra steps may be necessary to ensure that the analysis scripts can be run successfully.
+* Make sure your paths are set correctly in env.sh
+* If the simulation doesn't stop properly with CTRL+C , use CTRL+Z. 
+* Another method to stop the simulation relatively cleanly is to rename <code>runseg.sh</code>; WESTPA will shut the simulation down and prevent the hdf5 file from becoming corrupted. Some extra steps may be necessary to ensure that the analysis scripts can be run successfully.
 
 == References ==
 
-* Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular
-Dynamics Simulations of Molecular Association Kinetics: Methane/Methane,
-Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput.
-2011. &lt;http://pubs.acs.org/doi/abs/10.1021/ct100626x&gt;_
-
+* Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular Dynamics Simulations of Molecular Association Kinetics: Methane/Methane, Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput. 2011. http://pubs.acs.org/doi/abs/10.1021/ct100626x

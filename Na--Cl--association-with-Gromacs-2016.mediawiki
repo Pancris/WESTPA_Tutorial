@@ -408,7 +408,4 @@ Load this module into <code>w_ipa</code> by typing <code>from utils import TrajW
 
 == References ==
 
-* Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular
-Dynamics Simulations of Molecular Association Kinetics: Methane/Methane,
-Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput.
-2011. http://pubs.acs.org/doi/abs/10.1021/ct100626x
+* Zwier, MC, Kaus, JW, Chong, LT. Efficient Explicit-Solvent Molecular Dynamics Simulations of Molecular Association Kinetics: Methane/Methane, Na+/Cl−, Methane/Benzene, and K+/18-Crown-6 Ether. J Chem Theory Comput. 2011. http://pubs.acs.org/doi/abs/10.1021/ct100626x
