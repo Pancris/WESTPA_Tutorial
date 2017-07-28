@@ -249,7 +249,7 @@ The x-axis represents the iteration number, and the y-axis the flux into the bou
 <pre>$WEST_ROOT/bin/w_fluxanl --evol</pre>
 We may plot the time evolution of flux using the following commands at a python interpreter:
 
-<pre>; import h5py, numpy, pylab
+<pre>import h5py, numpy, pylab
 fluxanl   = h5py.File('fluxanl.h5')
 mean_flux = numpy.zeros(100)
 ci_ub     = numpy.zeros(100)
@@ -262,11 +262,12 @@ pylab.plot(mean_flux, 'b', ci_lb, 'g', ci_ub, 'r')
 pylab.xlabel("Iteration")
 pylab.ylabel("Mean Flux $(\frac{1}{\tau})$")
 pylab.show()</pre>
-[[../_static/nacl_amber_flux_evolution.png]]
+[[_static/nacl_amber_flux_evolution.png]]
 
 We can see that the flux has plateaued, indicating that the simulation has reached steady-state conditions. When calculating the rate, we discard the portion of data during which the system is equilibrating, using only portion over which the rates are steady and converging. We may calculate the rate using only the last 50 iterations:
 
-<pre>;$WEST_ROOT/bin/w_fluxanl --first-iter 50
+<pre>
+$WEST_ROOT/bin/w_fluxanl --first-iter 50
 
 Calculating mean flux and confidence intervals for iterations [50,101)
 target 'unbound':
