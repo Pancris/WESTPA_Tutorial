@@ -240,7 +240,7 @@ first_binding        = 100 - fluxanl['target_flux']['target_1']['flux'].shape[0]
 flux[first_binding:] = numpy.array(fluxanl['target_flux']['target_1']['flux'])
 pylab.plot(flux)
 pylab.xlabel("Iteration")
-pylab.ylabel("Instantaneous Flux $(\frac{1}{\tau})$")
+pylab.ylabel(u"Instantaneous Flux (1/\u03c4)")
 pylab.show()</pre>
 [[_static/nacl_amber_flux_instantaneous.png]]
 
@@ -260,7 +260,7 @@ ci_lb[first_binding:]     = numpy.array(fluxanl['target_flux']['target_1']['flux
 ci_ub[first_binding:]     = numpy.array(fluxanl['target_flux']['target_1']['flux_evolution']['ci_ubound'])
 pylab.plot(mean_flux, 'b', ci_lb, 'g', ci_ub, 'r')
 pylab.xlabel("Iteration")
-pylab.ylabel("Mean Flux $(\frac{1}{\tau})$")
+pylab.ylabel("Mean Flux (1/\u03c4)")
 pylab.show()</pre>
 [[_static/nacl_amber_flux_evolution.png]]
 
