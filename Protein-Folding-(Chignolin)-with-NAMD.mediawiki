@@ -189,7 +189,7 @@ for I in xrange(1,totNumIter+1):
       print counter, firstcoord[0],firstcoord[-1]</pre>
 In this example, we define the folded state as any structure with a C-alpha RMSD less than 2.5A. As shown in the plot, folding events occur after the first 20ns of simulation.
 
-[[File:_static/chig_minmax.png|frame|none]]
+[[_static/chig_minmax.png]]
 
 Computing the folding rate constant
 
