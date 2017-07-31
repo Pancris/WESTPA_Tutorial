@@ -30,7 +30,7 @@ and then submit to the cluster:
 
  qsub runwe_frank.sh
 
-== Preparing the AMBER files ==
+== Preparing the AMBER Files ==
 
 {| class="wikitable"
 ! Input File     !! Description
@@ -95,7 +95,7 @@ In this tutorial, the stochastic Langevin thermostat is being used, and the τ, 
 
 The progress coordinate length will be determined by the options chosen here; in this case, 100 timepoints are returned.
 
-== Preparing the WESTPA files ==
+== Preparing the WESTPA Files ==
 
 === init.sh ===
 <pre class='prettyprint'>
