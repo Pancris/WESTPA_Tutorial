@@ -8,7 +8,7 @@ Requirements: WESTPA 1.0 beta and Amber 16
 
 == Overview ==
 
-In this tutorial, we will be doing conformational sampling with WESTPA using Amber 15 on GPUs.  By the end, you should be able to setup, and run, a conformational sampling simulation scaling across multiple GPU nodes.
+In this tutorial, we will be doing conformational sampling with WESTPA using Amber 16 on GPUs.  By the end, you should be able to setup, and run, a conformational sampling simulation scaling across multiple GPU nodes.
 
 Results from this tutorial can be compared to those of extensive brute force simulations reported in Xiong et al., JPC A (2011) [http://pubs.acs.org/doi/abs/10.1021/jp112235d here].
 
