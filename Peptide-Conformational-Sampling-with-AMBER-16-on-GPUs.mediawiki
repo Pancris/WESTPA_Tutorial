@@ -28,7 +28,7 @@ by using the following set of commands:
 
 and then submit to the cluster:
 
- qsub runwe-frank.sh
+ qsub runwe_frank.sh
 
 == Preparing the AMBER files ==
 
