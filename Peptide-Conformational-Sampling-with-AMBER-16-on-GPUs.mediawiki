@@ -4,7 +4,7 @@ Contact: [mailto:Adam.J.Pratt@pitt.edu Adam.J.Pratt@pitt.edu]
 
 Requirements: [https://github.com/westpa/westpa/releases WESTPA v2017.07] and [http://ambermd.org/#Amber16 Amber 16] (<i>What about AmberTools 17?</i>)
 
-Suggested Experience: Bash Command Line (https://ryanstutorials.net/linuxtutorial/ Tutorial) and AMBER Dynamics Engine (http://ambermd.org/tutorials/ Tutorial)
+Suggested Experience: Bash Command Line [https://ryanstutorials.net/linuxtutorial/ Tutorial] and AMBER Dynamics Engine [http://ambermd.org/tutorials/ Tutorial]
 
 == Overview ==
 
