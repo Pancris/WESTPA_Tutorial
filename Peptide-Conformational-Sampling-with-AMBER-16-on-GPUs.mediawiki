@@ -2,7 +2,12 @@ by Parmila Kafley, Adam Pratt, and Elissa Fink
 
 Contact: [mailto:Adam.J.Pratt@pitt.edu Adam.J.Pratt@pitt.edu]
 
-Requirements: [https://github.com/westpa/westpa/releases WESTPA v2017.07] and [http://ambermd.org/#Amber16 Amber 16] (<i>What about AmberTool 17?</i>)
+Requirements: [https://github.com/westpa/westpa/releases WESTPA v2017.07] and [http://ambermd.org/#Amber16 Amber 16] (<i>What about AmberTools 17?</i>)
+<i> 
+Experience With: 
+*Bash Command Line
+*AMBER Dynamics Engine
+</i>
 
 == Overview ==
 
@@ -16,7 +21,7 @@ To run a WESTPA simulation of the p53 peptide, you will need a number of files f
 
 [https://github.com/ajoshpratt/p53-amber-westpa p53-tutorial]
 
-by using the following set of commands:
+by using the following set of commands on the command line:
 
  cd ~/
  git clone https://github.com/ajoshpratt/p53-amber-westpa
