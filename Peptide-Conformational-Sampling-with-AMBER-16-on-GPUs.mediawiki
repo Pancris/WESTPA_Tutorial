@@ -31,7 +31,7 @@ After cloning the repository, enter the p53 folder:
 
  cd p53-amber-westpa
 
-Set the environemt variable WEST_ROOT--found in script <code>env.sh</code>--to the absolute path of your WESTPA installation using your preferred text editor:
+Using your preferred text editor, set the environemt variable WEST_ROOT (found in script <code>env.sh</code>) to the absolute path of your WESTPA installation:
 
  export WEST_ROOT=/absolute_path_to_your_WESTPA_installation/westpa
 
@@ -39,9 +39,9 @@ Then run the following command:
 
  ./init.sh
 
-and then submit to the cluster:
+and submit to the cluster:
 
- sbatch runwe_frank.sh
+ sbatch runwe_h2p.sh
 
 == Preparing the AMBER Files ==
 
