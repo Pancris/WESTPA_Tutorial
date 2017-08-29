@@ -16,7 +16,7 @@ Results from this tutorial can be compared to those of extensive brute force sim
 
 You will be running the simulation on University of Pittsburgh's H2P cluster. Log into the cluster using the following command: 
 
- ssh **your_pitt_ID**@h2p.crc.pitt.edu 
+ ssh <i>your_pitt_ID</i>@h2p.crc.pitt.edu 
 
 To run the simulation of the p53 peptide, you will need a number of files for both WESTPA and the dynamics engine (AMBER). To obtain all of these files, clone the following repository:
 
