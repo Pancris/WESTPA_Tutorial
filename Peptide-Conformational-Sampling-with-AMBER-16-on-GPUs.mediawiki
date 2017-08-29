@@ -16,18 +16,27 @@ Results from this tutorial can be compared to those of extensive brute force sim
 
 You will be running the simulation on University of Pittsburgh's H2P cluster. Log into the cluster using the following command: 
 
- ssh <i>your_pitt_ID</i>@h2p.crc.pitt.edu 
+ ssh your_pitt_ID@h2p.crc.pitt.edu 
 
 To run the simulation of the p53 peptide, you will need a number of files for both WESTPA and the dynamics engine (AMBER). To obtain all of these files, clone the following repository:
 
 [https://github.com/ajoshpratt/p53-amber-westpa p53-tutorial]
 
-by using the following set of commands on the command line:
+by using the following set of commands:
 
  cd ~/
  git clone https://github.com/ajoshpratt/p53-amber-westpa
 
+After cloning the repository, enter the p53 folder:
+
  cd p53-amber-westpa
+
+Set the environemt variable WEST_ROOT--found in script <code>env.sh</code>--to the absolute path of your WESTPA installation using your preferred text editor:
+
+ export WEST_ROOT=/absolute_path_to_your_WESTPA_installation/westpa
+
+Then run the following command:
+
  ./init.sh
 
 and then submit to the cluster:
